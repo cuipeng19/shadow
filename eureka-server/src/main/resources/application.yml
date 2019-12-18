@@ -1,0 +1,17 @@
+server:
+  port: 19001
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  server:
+    #在Eureka服务器获取不到集群里对等服务器上的实例时，需要等待的时间，单位为毫秒
+    wait-time-in-ms-when-sync-empty: 0
+  client:
+    #此实例是否注册到eureka服务器，以供其他人发现
+    register-with-eureka: false
+    #是否获取eureka服务器注册表上的注册信息
+    fetch-registry: false
+    # EurekaServer地址,假如Eureka需要配置多个
