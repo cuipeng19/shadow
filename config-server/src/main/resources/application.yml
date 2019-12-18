@@ -1,0 +1,18 @@
+server:
+  port: 19011
+
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/${profiles.active:dev}/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:19001/eureka/
