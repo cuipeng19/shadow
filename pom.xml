@@ -8,6 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.2.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.shadow</groupId>
@@ -19,11 +20,8 @@
         <module>eureka-server</module>
         <module>config-server</module>
         <module>creepin-service</module>
+        <module>common</module>
     </modules>
-
-    <dependencies>
-
-    </dependencies>
 
     <dependencyManagement>
         <dependencies>

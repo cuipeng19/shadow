@@ -1,5 +1,6 @@
 package com.shadow.creepin.api;
 
+import com.shadow.common.bean.TestAO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,8 @@ public class TestController {
 
     @GetMapping("/test")
     public Object test() {
-        return "111";
+        TestAO ao = new TestAO();
+        ao.setName("aaa");
+        return ao;
     }
 }
