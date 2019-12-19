@@ -6,7 +6,7 @@
         <artifactId>shadow</artifactId>
         <groupId>com.shadow</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

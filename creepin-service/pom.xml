@@ -6,7 +6,7 @@
         <artifactId>shadow</artifactId>
         <groupId>com.shadow</groupId>
         <version>1.0.0</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.shadow</groupId>
+            <artifactId>common</artifactId>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
