@@ -1,0 +1,19 @@
+server:
+  port: 19101
+
+spring:
+  application:
+    name: creepin-service
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      label: master
+      discovery:
+        enabled: true
+        service-id: config-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.server.ip-address:127.0.0.1}:${eureka.server.port:19001}/eureka/
