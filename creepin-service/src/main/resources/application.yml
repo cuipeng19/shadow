@@ -14,7 +14,7 @@ spring:
         service-id: config-server
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:pandb
+    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
     username: posp
     password: posp
   profiles:
@@ -23,7 +23,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://${eureka.server.ip-address:127.0.0.1}:${eureka.server.port:19001}/eureka/
+      defaultZone: http://127.0.0.1:19001/eureka/
 
 mybatis:
   mapperLocations: classpath:mapper/*Mapper.xml
