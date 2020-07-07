@@ -15,3 +15,5 @@ eureka:
     #是否获取eureka服务器注册表上的注册信息
     fetch-registry: false
     # EurekaServer地址,假如Eureka需要配置多个
+    service-url:
+      defaultZone: http://127.0.0.1:19001/eureka/
