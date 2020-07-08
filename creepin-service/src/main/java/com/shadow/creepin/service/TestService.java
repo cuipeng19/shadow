@@ -5,5 +5,5 @@ package com.shadow.creepin.service;
  */
 public interface TestService {
 
-    Object test();
+    Object test() throws Exception;
 }

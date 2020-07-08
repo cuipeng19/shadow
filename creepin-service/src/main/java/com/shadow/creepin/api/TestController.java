@@ -20,7 +20,12 @@ public class TestController {
 
     @GetMapping("/test")
     public Object test() {
-
-        return testService.test();
+        Object o;
+        try {
+            o = testService.test();
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return o;
     }
 }
