@@ -23,13 +23,11 @@ public class TestServiceImpl implements TestService {
 
 
     @Override
-    public Object test() throws Exception {
+    public Object test() {
         System.out.println(key);
         ResultDTO dto = letterServiceFeign.test("aaa");
-        if(Integer.valueOf(500).equals(dto.getCode())) {
-            throw new Exception(dto.getMessage());
-        }
-        return dto.getData();
+
+        return dto;
 //        return bMerchAudMapper.selectByPrimaryKey("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
     }
 }
