@@ -1,0 +1,19 @@
+server:
+  port: 19201
+
+spring:
+  application:
+    name: letter-service
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
+    username: posp
+    password: posp
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:19001/eureka/
+

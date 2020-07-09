@@ -1,20 +1,18 @@
-package com.shadow.creepin;
+package com.shadow.letter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import tk.mybatis.spring.annotation.MapperScan;
 
 /**
- * creepin up on you
- * @author cuipeng 2019/12/19 10:50
+ * luv letter
+ * @author cuipeng 2020/7/7 16:45
  */
 @SpringBootApplication
 @EnableFeignClients
-@MapperScan(basePackages = "com.shadow.creepin.dao")
-public class CreepinApplication {
+public class LetterApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CreepinApplication.class, args);
+        SpringApplication.run(LetterApplication.class, args);
     }
 }

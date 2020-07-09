@@ -8,13 +8,12 @@ spring:
     config:
       name: ${spring.application.name}
       profile: ${spring.profiles.active}
-      label: master
       discovery:
         enabled: true
         service-id: config-server
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@localhost:1521:pandb
+    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
     username: posp
     password: posp
   profiles:
@@ -23,7 +22,18 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://${eureka.server.ip-address:127.0.0.1}:${eureka.server.port:19001}/eureka/
+      defaultZone: http://127.0.0.1:19001/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+  hystrix:
+    enabled: true
+
 
 mybatis:
   mapperLocations: classpath:mapper/*Mapper.xml
@@ -31,3 +41,7 @@ mybatis:
 mapper:
   not-empty: false
   mappers: tk.mybatis.mapper.common.Mapper
+
+logging:
+  level:
+    root: info
