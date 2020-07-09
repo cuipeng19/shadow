@@ -19,10 +19,23 @@ public class ResultDTO<T> {
     public ResultDTO() {
     }
 
-    public static <T> ResultDTO<T> build() {
+    /**
+     * 操作成功
+     */
+    public static <T> ResultDTO<T> success() {
         ResultDTO dto = new ResultDTO();
         dto.setCode(200);
         dto.setMessage("操作成功");
+        return dto;
+    }
+
+    /**
+     * 服务超时
+     */
+    public static <T> ResultDTO<T> timeout() {
+        ResultDTO dto = new ResultDTO();
+        dto.setCode(500);
+        dto.setMessage("服务超时");
         return dto;
     }
 

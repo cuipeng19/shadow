@@ -4,6 +4,7 @@ import com.shadow.common.bean.ResultDTO;
 import com.shadow.creepin.feign.fallback.LetterServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author cuipeng 2020/7/7 16:57
@@ -12,5 +13,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface LetterServiceFeign {
 
     @GetMapping("/test/test")
-    ResultDTO test();
+    ResultDTO test(@RequestParam("param") String param);
 }

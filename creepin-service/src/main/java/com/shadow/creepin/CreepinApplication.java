@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
+ * creepin up on you
  * @author cuipeng 2019/12/19 10:50
  */
 @SpringBootApplication

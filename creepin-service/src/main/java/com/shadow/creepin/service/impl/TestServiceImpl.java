@@ -25,7 +25,7 @@ public class TestServiceImpl implements TestService {
     @Override
     public Object test() throws Exception {
         System.out.println(key);
-        ResultDTO dto = letterServiceFeign.test();
+        ResultDTO dto = letterServiceFeign.test("aaa");
         if(Integer.valueOf(500).equals(dto.getCode())) {
             throw new Exception(dto.getMessage());
         }
