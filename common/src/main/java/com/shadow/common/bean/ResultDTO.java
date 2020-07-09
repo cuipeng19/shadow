@@ -54,4 +54,8 @@ public class ResultDTO<T> {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "{code=" + code + ", message='" + message + '\'' + ", data=" + data + '}';
+    }
 }
