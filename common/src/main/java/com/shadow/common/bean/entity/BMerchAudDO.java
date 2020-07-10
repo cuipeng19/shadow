@@ -1,4 +1,4 @@
-package com.shadow.common.bean.creepin.entity;
+package com.shadow.common.bean.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;

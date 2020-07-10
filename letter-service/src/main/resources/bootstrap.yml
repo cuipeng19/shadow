@@ -34,6 +34,14 @@ feign:
   hystrix:
     enabled: true
 
+
+mybatis:
+  mapperLocations: classpath:mapper/*Mapper.xml
+
+mapper:
+  not-empty: false
+  mappers: tk.mybatis.mapper.common.Mapper
+
 logging:
   file:
     path: logs

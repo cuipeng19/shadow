@@ -1,4 +1,4 @@
-package com.shadow.creepin.dao;
+package com.shadow.letter.dao;
 
 import com.shadow.common.bean.entity.BMerchAudDO;
 import tk.mybatis.mapper.common.Mapper;
