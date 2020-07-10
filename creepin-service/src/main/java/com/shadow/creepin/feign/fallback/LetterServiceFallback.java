@@ -1,6 +1,7 @@
 package com.shadow.creepin.feign.fallback;
 
 import com.shadow.common.bean.ResultDTO;
+import com.shadow.common.bean.creepin.ao.TestAO;
 import com.shadow.creepin.feign.LetterServiceFeign;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class LetterServiceFallback implements LetterServiceFeign {
 
 
     @Override
-    public ResultDTO test(String param) {
+    public ResultDTO test(TestAO ao) {
         log.error("LetterController::test熔断");
         return ResultDTO.timeout();
     }

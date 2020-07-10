@@ -1,9 +1,12 @@
 package com.shadow.creepin.feign;
 
 import com.shadow.common.bean.ResultDTO;
+import com.shadow.common.bean.creepin.ao.TestAO;
 import com.shadow.creepin.feign.fallback.LetterServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -12,6 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "letter-service", fallback = LetterServiceFallback.class)
 public interface LetterServiceFeign {
 
-    @GetMapping("/test/test")
-    ResultDTO test(@RequestParam("param") String param);
+    @PostMapping("/test/test")
+    ResultDTO test(@RequestBody TestAO ao);
 }

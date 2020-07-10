@@ -15,6 +15,8 @@ public class ResultDTO<T> {
     private String message;
     @Getter
     private T data;
+    @Getter
+    private Integer total;
 
     public ResultDTO() {
     }
@@ -51,6 +53,11 @@ public class ResultDTO<T> {
 
     public ResultDTO<T> setData(T data) {
         this.data = data;
+        return this;
+    }
+
+    public ResultDTO<T> setTotal(Integer total) {
+        this.total = total;
         return this;
     }
 

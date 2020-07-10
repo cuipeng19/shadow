@@ -43,5 +43,5 @@ mapper:
   mappers: tk.mybatis.mapper.common.Mapper
 
 logging:
-  level:
-    root: info
+  file:
+    path: logs
