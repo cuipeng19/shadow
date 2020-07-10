@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: eureka-server
+  profiles:
+    active: dev
 
 eureka:
   server:
@@ -17,3 +19,7 @@ eureka:
     # EurekaServer地址,假如Eureka需要配置多个
     service-url:
       defaultZone: http://127.0.0.1:19001/eureka/
+
+logging:
+  file:
+    path: logs
