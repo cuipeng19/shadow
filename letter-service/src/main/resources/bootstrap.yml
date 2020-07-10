@@ -4,6 +4,13 @@ server:
 spring:
   application:
     name: letter-service
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: config-server
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
@@ -17,3 +24,16 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:19001/eureka/
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+  hystrix:
+    enabled: true
+
+logging:
+  file:
+    path: logs

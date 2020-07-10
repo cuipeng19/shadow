@@ -29,8 +29,6 @@ public class LogAspect {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
 
-        String url = request.getRequestURL().toString();
-        String ip = request.getRemoteAddr();
         String method = request.getMethod();
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
