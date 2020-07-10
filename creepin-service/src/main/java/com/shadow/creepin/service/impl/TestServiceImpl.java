@@ -1,6 +1,7 @@
 package com.shadow.creepin.service.impl;
 
 import com.shadow.common.bean.ResultDTO;
+import com.shadow.common.bean.creepin.ao.TestAO;
 import com.shadow.creepin.dao.BMerchAudMapper;
 import com.shadow.creepin.feign.LetterServiceFeign;
 import com.shadow.creepin.service.TestService;
@@ -23,9 +24,8 @@ public class TestServiceImpl implements TestService {
 
 
     @Override
-    public Object test() {
-        System.out.println(key);
-        ResultDTO dto = letterServiceFeign.test("aaa");
+    public Object test(TestAO ao) {
+        ResultDTO dto = letterServiceFeign.test(ao);
 
         return dto;
 //        return bMerchAudMapper.selectByPrimaryKey("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");

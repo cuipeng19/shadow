@@ -1,11 +1,9 @@
 package com.shadow.creepin.api;
 
-import com.shadow.common.bean.TestAO;
+import com.shadow.common.bean.creepin.ao.TestAO;
 import com.shadow.creepin.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cuipeng 2019/12/19 11:12
@@ -19,10 +17,10 @@ public class TestController {
 
 
     @GetMapping("/test")
-    public Object test() {
+    public Object test(@RequestBody TestAO ao) {
         Object o;
         try {
-            o = testService.test();
+            o = testService.test(ao);
         } catch (Exception e) {
             return e.getMessage();
         }

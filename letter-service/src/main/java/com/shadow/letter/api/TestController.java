@@ -1,10 +1,8 @@
 package com.shadow.letter.api;
 
 import com.shadow.common.bean.ResultDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.shadow.common.bean.creepin.ao.TestAO;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cuipeng 2020/7/7 16:55
@@ -13,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @GetMapping("/test")
-    public ResultDTO<Object> test(@RequestParam("param") String param) {
-        System.out.println(param);
+    @PostMapping("/test")
+    public ResultDTO<Object> test(@RequestBody TestAO ao) {
         return ResultDTO.success().setData("letter");
     }
 
