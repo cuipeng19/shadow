@@ -7,9 +7,10 @@
     <springProperty scope="context" name="logName" source="spring.application.name"/>
 
     <logger name="com.shadow.creepin.dao" level="DEBUG"/>
+    <logger name="com.shadow.creepin.feign.LetterServiceFeign" level="DEBUG"/>
 
 
-    <!--INFO日志-->
+    <!--文件-->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${logName}.log</file>
         <!-- 滚动策略  按照时间滚动 -->

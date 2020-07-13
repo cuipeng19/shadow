@@ -15,7 +15,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:19001/eureka/
+      defaultZone: http://127.0.0.1:19001/eureka/,http://127.0.0.1:19002/eureka/
 
 logging:
   file:
