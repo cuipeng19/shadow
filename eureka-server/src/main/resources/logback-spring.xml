@@ -23,7 +23,7 @@
     </appender>
 
 
-    <springProfile name="dev">
+    <springProfile name="dev,peer1,peer2">
         <root level="INFO">
             <appender-ref ref="FILE"/>
             <appender-ref ref="CONSOLE"/>
