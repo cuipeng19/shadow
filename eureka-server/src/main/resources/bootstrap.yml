@@ -4,41 +4,16 @@ server:
 spring:
   application:
     name: eureka-server
-
-
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: https://peer1/eureka/,http://peer2/eureka/,http://peer3/eureka/
-
-logging:
-  file:
-    path: logs
-
-
-
----
-spring:
   profiles:
-    active: peer1
+    active: dev
+
 eureka:
   instance:
     hostname: peer1
   client:
     serviceUrl:
-      defaultZone: http://peer2:19002/eureka/
+      defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
 
-
----
-
-spring:
-  profiles:
-    active: peer2
-eureka:
-  instance:
-    hostname: peer2
-  client:
-    serviceUrl:
-      defaultZone: http://peer1:19001/eureka/
-
-
+logging:
+  file:
+    path: logs
