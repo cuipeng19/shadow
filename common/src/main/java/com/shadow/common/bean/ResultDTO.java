@@ -1,6 +1,7 @@
 package com.shadow.common.bean;
 
 
+import com.shadow.common.exception.ShadowStatus;
 import lombok.Getter;
 
 
@@ -9,37 +10,85 @@ import lombok.Getter;
  */
 public class ResultDTO<T> {
 
+    /**
+     * 状态码
+     */
     @Getter
     private Integer code;
+
+    /**
+     * 描述信息
+     */
     @Getter
     private String message;
+
+    /**
+     * 响应数据
+     */
     @Getter
     private T data;
-    @Getter
-    private Integer total;
+
+
 
     public ResultDTO() {
     }
 
+    public ResultDTO(ShadowStatus shadowStatus) {
+        this.code = shadowStatus.getState();
+        this.message = shadowStatus.getMessage();
+    }
+
+    public ResultDTO(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public ResultDTO(ShadowStatus shadowStatus, T data) {
+        this.code = shadowStatus.getState();
+        this.message = shadowStatus.getMessage();
+        this.data = data;
+    }
+
+    public ResultDTO(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+
     /**
-     * 操作成功
+     * 10000
+     * <p>操作成功</p>
      */
-    public static <T> ResultDTO<T> success() {
+    public static ResultDTO success() {
         ResultDTO dto = new ResultDTO();
-        dto.setCode(200);
-        dto.setMessage("操作成功");
+        dto.setCode(ShadowStatus.SUCCESS.getState());
+        dto.setMessage(ShadowStatus.SUCCESS.getMessage());
         return dto;
     }
 
     /**
-     * 服务超时
+     * 40000
+     * <p>业务异常</p>
      */
-    public static <T> ResultDTO<T> timeout() {
+    public static ResultDTO error() {
         ResultDTO dto = new ResultDTO();
-        dto.setCode(500);
-        dto.setMessage("服务超时");
+        dto.setCode(ShadowStatus.ERROR_BUSINESS.getState());
+        dto.setMessage(ShadowStatus.ERROR_BUSINESS.getMessage());
         return dto;
     }
+
+    /**
+     * 50000
+     * <p>服务超时</p>
+     */
+    public static ResultDTO timeout() {
+        ResultDTO dto = new ResultDTO();
+        dto.setCode(ShadowStatus.ERROR_NETWORK.getState());
+        dto.setMessage(ShadowStatus.ERROR_NETWORK.getMessage());
+        return dto;
+    }
+
 
     public ResultDTO<T> setCode(Integer code) {
         this.code = code;
@@ -53,11 +102,6 @@ public class ResultDTO<T> {
 
     public ResultDTO<T> setData(T data) {
         this.data = data;
-        return this;
-    }
-
-    public ResultDTO<T> setTotal(Integer total) {
-        this.total = total;
         return this;
     }
 
