@@ -18,12 +18,10 @@ public class TestController {
 
     @GetMapping("/test")
     public Object test(@RequestBody TestAO ao) {
-        Object o;
-        try {
-            o = testService.test(ao);
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+
+        Object o = testService.test(ao);
+
+
         return o;
     }
 }

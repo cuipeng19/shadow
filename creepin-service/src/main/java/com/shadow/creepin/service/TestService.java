@@ -7,5 +7,5 @@ import com.shadow.common.bean.creepin.ao.TestAO;
  */
 public interface TestService {
 
-    Object test(TestAO ao) throws Exception;
+    Object test(TestAO ao);
 }
