@@ -61,10 +61,7 @@ public class ResultDTO<T> {
      * <p>操作成功</p>
      */
     public static ResultDTO success() {
-        ResultDTO dto = new ResultDTO();
-        dto.setCode(ShadowStatus.SUCCESS.getState());
-        dto.setMessage(ShadowStatus.SUCCESS.getMessage());
-        return dto;
+        return new ResultDTO(ShadowStatus.SUCCESS);
     }
 
     /**
@@ -72,10 +69,7 @@ public class ResultDTO<T> {
      * <p>业务异常</p>
      */
     public static ResultDTO error() {
-        ResultDTO dto = new ResultDTO();
-        dto.setCode(ShadowStatus.ERROR_BUSINESS.getState());
-        dto.setMessage(ShadowStatus.ERROR_BUSINESS.getMessage());
-        return dto;
+        return new ResultDTO(ShadowStatus.ERROR_BUSINESS);
     }
 
     /**
@@ -83,10 +77,7 @@ public class ResultDTO<T> {
      * <p>服务超时</p>
      */
     public static ResultDTO timeout() {
-        ResultDTO dto = new ResultDTO();
-        dto.setCode(ShadowStatus.ERROR_NETWORK.getState());
-        dto.setMessage(ShadowStatus.ERROR_NETWORK.getMessage());
-        return dto;
+        return new ResultDTO(ShadowStatus.ERROR_NETWORK);
     }
 
 

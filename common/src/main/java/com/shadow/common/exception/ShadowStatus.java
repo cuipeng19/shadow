@@ -13,6 +13,12 @@ public enum  ShadowStatus {
     SUCCESS(20000, "操作成功"),
 
     /**
+     * 30000
+     * <p>校验异常</p>
+     */
+    ERROR_VALIDATED(30000, "校验异常"),
+
+    /**
      * 40000
      * <p>业务异常</p>
      */
