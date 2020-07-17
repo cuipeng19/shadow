@@ -25,7 +25,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public Object test(TestAO ao) {
-        bMerchAudMapper.selectByPrimaryKey("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
+//        bMerchAudMapper.selectByPrimaryKey("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
 
         ResultDTO dto = letterServiceFeign.test(ao);
 

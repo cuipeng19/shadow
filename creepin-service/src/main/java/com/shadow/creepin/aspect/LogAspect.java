@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 /**
+ * aop日志
  * @author cuipeng 2020/7/9 11:17
  */
 @Aspect
@@ -29,6 +30,7 @@ public class LogAspect {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
 
+        // 请求头
         String method = request.getMethod();
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
@@ -40,8 +42,10 @@ public class LogAspect {
         }
         log.info("Request:{},[{}::{}],param:{}", method, className, methodName, requestJson.toJSONString());
 
+        // 方法调用
         Object o = joinPoint.proceed();
 
+        // 响应
         long duration = LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli() - startTime;
         ResultDTO dto = (ResultDTO)o;
         log.info("Response[{}]:{}", duration, dto.toString());
