@@ -1,0 +1,47 @@
+server:
+  port: 19301
+
+spring:
+  application:
+    name: stan-service
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: config-server
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
+    username: posp
+    password: posp
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+        loggerLevel: basic
+  hystrix:
+    enabled: true
+
+
+mybatis:
+  mapperLocations: classpath:mapper/*Mapper.xml
+
+mapper:
+  not-empty: false
+  mappers: tk.mybatis.mapper.common.Mapper
+
+logging:
+  file:
+    path: logs
