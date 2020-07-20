@@ -22,6 +22,7 @@
         <module>config-server</module>
         <module>creepin-service</module>
         <module>letter-service</module>
+        <module>stan-service</module>
     </modules>
 
     <dependencyManagement>
