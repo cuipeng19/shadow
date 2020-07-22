@@ -23,6 +23,7 @@
         <module>creepin-service</module>
         <module>letter-service</module>
         <module>stan-service</module>
+        <module>stan-service-gateway</module>
     </modules>
 
     <dependencyManagement>

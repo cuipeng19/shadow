@@ -1,0 +1,38 @@
+server:
+  port: 19401
+
+spring:
+  application:
+    name: stan-service-gateway
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
+    username: posp
+    password: posp
+    profiles:
+      active: dev
+  cloud:
+    gateway:
+      routes:
+      - id: stan-service-route
+        uri: lb://stan-service
+        predicates:
+        - Path=/**
+# 通用配置
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+  file:
+    path: logs
