@@ -9,16 +9,18 @@ spring:
     url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
     username: posp
     password: posp
-    profiles:
-      active: dev
+  profiles:
+    active: dev
   cloud:
     gateway:
       routes:
       - id: stan-service-route
         uri: lb://stan-service
         predicates:
-        - Path=/**
-# 通用配置
+          - Path=/stan/**
+        filters:
+          - StripPrefix=1
+# 通用路由配置
 #  cloud:
 #    gateway:
 #      discovery:
@@ -31,8 +33,15 @@ eureka:
     service-url:
       defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway,health,info
+
 logging:
   level:
     org.springframework.cloud.gateway: debug
   file:
     path: logs
+
