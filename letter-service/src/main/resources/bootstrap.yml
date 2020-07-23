@@ -6,16 +6,11 @@ spring:
     name: letter-service
   cloud:
     config:
-      name: ${spring.application.name}
+      name: ${spring.application.name},datasource
       profile: ${spring.profiles.active}
       discovery:
         enabled: true
         service-id: config-server
-  datasource:
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
-    username: posp
-    password: posp
   profiles:
     active: dev
 
