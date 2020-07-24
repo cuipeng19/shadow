@@ -19,6 +19,10 @@ spring:
           - Path=/stan/**
         filters:
           - StripPrefix=1
+          - name: Hystrix
+            args:
+              name: fallbackcmd
+              fallbackUri: forward:/hystrix/fallback
   profiles:
     active: dev
 # 通用路由配置
