@@ -1,6 +1,7 @@
 package com.shadow.stan.gateway.api;
 
 import com.shadow.common.bean.ResultDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,10 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/hystrix")
+@Slf4j
 public class HystrixController {
 
     @RequestMapping("/fallback")
     public ResultDTO fallback() {
+        log.error("熔断降级");
         return ResultDTO.timeout();
     }
 }

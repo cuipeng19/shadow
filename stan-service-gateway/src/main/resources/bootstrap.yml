@@ -6,7 +6,7 @@ spring:
     name: stan-service-gateway
   cloud:
     config:
-      name: ${spring.application.name},datasource
+      name: ${spring.application.name},datasource,redis
       profile: ${spring.profiles.active}
       discovery:
         enabled: true
@@ -19,10 +19,18 @@ spring:
           - Path=/stan/**
         filters:
           - StripPrefix=1
+          # 熔断降级
           - name: Hystrix
             args:
               name: fallbackcmd
               fallbackUri: forward:/hystrix/fallback
+          # 令牌桶
+          - name: RequestRateLimiter
+            args:
+              key-resolver: "#{@uriKeyResolver}"
+              redis-rate-limiter:
+                replenishRate: 1 # 补充频率，每秒1个
+                burstCapacity: 1 # 容量
   profiles:
     active: dev
 # 通用路由配置

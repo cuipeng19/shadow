@@ -16,8 +16,8 @@ import java.time.ZoneOffset;
  * aop日志
  * @author cuipeng 2020/7/9 11:17
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Slf4j
 public class LogAspect {
 
