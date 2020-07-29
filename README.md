@@ -31,6 +31,8 @@ Hoxton.SR6
 
 ## 服务网关
 
+统一进行鉴权、限流、验签等。对外统一提供服务，屏蔽内部独立服务的访问。子服务的添加和移除对外无感知，增加系统扩展性。
+
 ### 核心概念
 
 #### 路由
@@ -38,3 +40,10 @@ Hoxton.SR6
 #### 断言
 
 #### 过滤器
+
+    public interface GatewayFilterChain {
+    
+        // 
+        Mono<Void> filter(ServerWebExchange exchange);
+    
+    }
