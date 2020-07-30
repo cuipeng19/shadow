@@ -4,6 +4,7 @@ Hoxton.SR6
 
 
 ## 目录
+
 - [服务治理](#服务治理)
     - [服务注册](#服务注册)
     - [服务发现](#服务发现)
@@ -12,10 +13,13 @@ Hoxton.SR6
 - sleuth
 - [服务网关](#服务网关)
     - [核心概念](#核心概念)
-        -[路由](#路由)
-        -[断言](#断言)
-        -[过滤器](#过滤器)
-        -[WebFlux](#WebFlux)
+        - [路由](#路由)
+        - [断言](#断言)
+        - [过滤器](#过滤器)
+        - [WebFlux](#WebFlux)
+            - [响应式编程](#响应式编程)
+            - [Servlet模型](#Servlet模型)
+            - [WebFlux模型](#WebFlux模型)
 - actuator
 
 
@@ -62,7 +66,7 @@ Hoxton.SR6
 
 ##### Servlet模型
 
-![Servlet模型](/media/gateway/Servlet模型.webp)
+![Servlet](./media/picture/gateway/Servlet模型.png)
 
 servlet由ServletContainer进行生命周期管理。container启动时构造servlet对象并调用init()初始化，container关闭时调用destory()销毁，servlet运行时接收请求，并为每个请求分配一个线程然后调用service()。  
 
@@ -72,6 +76,6 @@ spring webmvc是基于servlet的路由模型，所有请求由DispatcherServlet�
 
 ##### WebFlux模型
 
-![WebFlux模型](/media/gateway/WebFlux模型.webp)
+![WebFlux模型](./media/picture/gateway/WebFlux模型.png)
 
 webFlux用少量的线程处理request和response io操作，称为loop线程，阻塞的操作提交到响应式框架的work线程中执行，不阻塞的操作依然可以在loop线程中处理，大大提高了loop线程的利用率。
