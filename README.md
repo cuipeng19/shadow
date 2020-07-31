@@ -59,14 +59,23 @@ Hoxton.SR6
     
 #### WebFlux
 
+##### Stream流
+
+![Stream流](./media/picture/gateway/Stream流.jpg)
+
+执行中间操作，就是提供API声明式操作Stream流中的数据（映射、合并、过滤等）。
+
 ##### 响应式编程 
  
-是一种面向数据流和变化传播的编程范式，计算模型自动将变化的值通过数据流进行传播。  
-例：excel单元格的值，公式=B1+C1
+异步非阻塞，一种面向数据流和变化传递的编程范式，计算模型自动将变化的值通过数据流进行传播。  
+例：excel单元格的值，公式=B1+C1  
+JDK8 Stream流是同步的，JDK9支持响应式流。
+
+* 
 
 ##### Servlet模型
 
-![Servlet](./media/picture/gateway/Servlet模型.png)
+![Servlet模型](./media/picture/gateway/Servlet模型.png)
 
 servlet由ServletContainer进行生命周期管理。container启动时构造servlet对象并调用init()初始化，container关闭时调用destory()销毁，servlet运行时接收请求，并为每个请求分配一个线程然后调用service()。  
 
@@ -79,3 +88,6 @@ spring webmvc是基于servlet的路由模型，所有请求由DispatcherServlet�
 ![WebFlux模型](./media/picture/gateway/WebFlux模型.png)
 
 webFlux用少量的线程处理request和response io操作，称为loop线程，阻塞的操作提交到响应式框架的work线程中执行，不阻塞的操作依然可以在loop线程中处理，大大提高了loop线程的利用率。
+
+
+
