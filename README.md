@@ -59,6 +59,8 @@ Hoxton.SR6
     
 #### WebFlux
 
+在WebFlux中，ServerRequest和ServerResponse取代ServletRequest和ServletResponse，提供non-blocking和backpressure，可将http的消息内容转换为Mono和Flux。
+
 ##### Stream流
 
 ![Stream流](./media/picture/gateway/Stream流.jpg)
@@ -67,7 +69,7 @@ Hoxton.SR6
 
 ##### 响应式编程 
  
-异步非阻塞，一种面向数据流和变化传递的编程范式，计算模型自动将变化的值通过数据流进行传播。  
+异步非阻塞，一种面向数据流和变化传递的声明式编程范式，计算模型自动将变化的值通过数据流进行传播。  
 例：excel单元格的值，公式=B1+C1  
 JDK8 Stream流是同步的，JDK9支持响应式流。
 
