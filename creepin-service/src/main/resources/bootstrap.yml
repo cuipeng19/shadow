@@ -11,6 +11,9 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
+#    alibaba:
+#      seata:
+#        tx-service-group: shadow-tx-group
   profiles:
     active: dev
 
@@ -27,8 +30,7 @@ feign:
         readTimeout: 60000
         loggerLevel: basic
   hystrix:
-    enabled: true
-
+    enabled: false
 
 mybatis:
   mapperLocations: classpath:mapper/*Mapper.xml
