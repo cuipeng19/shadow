@@ -1,25 +1,36 @@
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
-    username: posp
-    password: posp
-    initialSize: 5
-    minIdle: 5
-    maxActive: 20
-    maxWait: 60000
-    timeBetweenEvictionRunsMillis: 60000
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    stat-view-servlet:
-      enabled: true
-      url-pattern: /druid/*
-      reset-enable: false
-      login-username: dev
-      login-password: dev
-      allow: 127.0.0.1
-      deny: 192.0.0.1
+    druid:
+      url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
+      username: posp
+      password: posp
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      initial-size: 0
+      max-active: 60
+      min-idle: 2
+      max-wait: 5000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: 'SELECT 1 FROM DUAL'
+      validation-query-timeout: 1000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 6000
+      min-evictable-idle-time-millis: 600000
+      max-evictable-idle-time-millis: 25200000
+      keep-alive: true
+      fail-fast: true
+      filters: mergeStat,wall,slf4j
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: '*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*'
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: dev
+        login-password: dev
+        allow: 127.0.0.1
+        deny: 192.0.0.1
