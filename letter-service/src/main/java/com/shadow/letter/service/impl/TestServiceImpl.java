@@ -1,5 +1,6 @@
 package com.shadow.letter.service.impl;
 
+import com.shadow.common.bean.entity.BMerchAudDO;
 import com.shadow.letter.dao.BMerchAudMapper;
 import com.shadow.letter.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void test() {
-        merchAudMapper.selectByPrimaryKey("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
+        BMerchAudDO record = new BMerchAudDO();
+        record.setId("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
+        record.setAuditorName("aaa");
+        merchAudMapper.updateByPrimaryKeySelective(record);
     }
 }
