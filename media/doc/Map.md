@@ -264,17 +264,19 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     transient Node<K,V>[] table;
 
     /**
+     * 存放具体元素的集
      * Holds cached entrySet(). Note that AbstractMap fields are used
      * for keySet() and values().
      */
     transient Set<Map.Entry<K,V>> entrySet;
 
     /**
-     * 此映射中包含的键-值映射的数目。
+     * 存放元素的个数，注意这个不等于数组的长度。
      */
     transient int size;
 
     /**
+     * 每次扩容和更改map结构的计数器
      * The number of times this HashMap has been structurally modified
      * Structural modifications are those that change the number of mappings in
      * the HashMap or otherwise modify its internal structure (e.g.,
@@ -284,9 +286,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     transient int modCount;
 
     /**
-     * 要调整大小的下一个大小值(容量*装载因子)。
-     *
-     * @serial
+     * 临界值 当实际大小(容量*填充因子)超过临界值时，会进行扩容
      */
     // (The javadoc description is true upon serialization.
     // Additionally, if the table array has not been allocated, this
@@ -296,8 +296,6 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
     /**
      * 哈希表的加载因子。
-     *
-     * @serial
      */
     final float loadFactor;
 
@@ -2247,6 +2245,10 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     }
 
 }
+
+#### put方法
+
+![put()](../picture/dataStructure/HashMap.put.jpg)
 
 ### ConcurrentHashMap
 
