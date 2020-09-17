@@ -480,24 +480,33 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         // table未初始化或者长度为0，进行扩容
         if ((tab = table) == null || (n = tab.length) == 0)
             n = (tab = resize()).length;
+        // (n - 1) & hash 确定元素存放在哪个桶中，桶为空，新生成结点放入桶中(此时，这个结点是放在数组中)
         if ((p = tab[i = (n - 1) & hash]) == null)
             tab[i] = newNode(hash, key, value, null);
         // 桶中已经存在元素
         else {
             Node<K,V> e; K k;
+            // 比较桶中第一个元素(数组中的结点)的hash值相等，key相等
             if (p.hash == hash &&
                 ((k = p.key) == key || (key != null && key.equals(k))))
+                // 将第一个元素赋值给e，用e来记录
                 e = p;
+            // key不相等,为红黑树结点
             else if (p instanceof TreeNode)
+                // 放入树中
                 e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
             else {
                 for (int binCount = 0; ; ++binCount) {
+                    // 到达链表的尾部
                     if ((e = p.next) == null) {
+                        // 在尾部插入新结点
                         p.next = newNode(hash, key, value, null);
+                        // 结点数量达到阈值，转化为红黑树
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
                         break;
                     }
+                    // 判断链表中结点的key值与插入的元素的key值是否相等
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
                         break;
@@ -513,6 +522,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             }
         }
         ++modCount;
+        // 实际大小大于阈值则扩容
         if (++size > threshold)
             resize();
         afterNodeInsertion(evict);
