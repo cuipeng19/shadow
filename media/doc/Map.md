@@ -5,6 +5,8 @@
         - [简介](#HashMap简介)
         - [内部结构](#HashMap内部结构)
         - [核心源码](#HashMap源码)
+        - [put方法](#Put方法)
+        - [get方法](#Get方法)
     - [ConcurrentHashMap](#ConcurrentHashMap)
         - [简介](#ConcurrentHashMap简介)
         - [核心源码](#ConcurrentHashMap源码)
@@ -422,12 +424,16 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         Node<K,V>[] tab; Node<K,V> first, e; int n; K k;
         if ((tab = table) != null && (n = tab.length) > 0 &&
             (first = tab[(n - 1) & hash]) != null) {
+            // 数组元素相等
             if (first.hash == hash && // always check first node
                 ((k = first.key) == key || (key != null && key.equals(k))))
                 return first;
+            // 链表
             if ((e = first.next) != null) {
+                // 在树中get
                 if (first instanceof TreeNode)
                     return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+                // 在链表中get
                 do {
                     if (e.hash == hash &&
                         ((k = e.key) == key || (key != null && key.equals(k))))
@@ -2256,9 +2262,17 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
 }
 
-#### put方法
+#### Put方法
 
-![put()](../picture/dataStructure/HashMap.put.jpg)
+![put](../picture/dataStructure/HashMap.put.jpg)
+
+#### Get方法
+
+![get](../picture/dataStructure/HashMap.get.jpg)
+
+#### Resize方法
+
+
 
 ### ConcurrentHashMap
 
