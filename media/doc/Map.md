@@ -7,6 +7,7 @@
         - [核心源码](#HashMap源码)
         - [put方法](#Put方法)
         - [get方法](#Get方法)
+        - [Resize方法](#Resize方法)
     - [ConcurrentHashMap](#ConcurrentHashMap)
         - [简介](#ConcurrentHashMap简介)
         - [核心源码](#ConcurrentHashMap源码)
@@ -605,7 +606,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
  
  
                     else if (e instanceof TreeNode)  // 如果该节点为TreeNode类型
-                        ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);  // 此处单独展开讨论
+                        ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
                     else { // preserve order
                         Node<K,V> loHead = null, loTail = null;  // 按命名来翻译的话，应该叫低位首尾节点
                         Node<K,V> hiHead = null, hiTail = null;  // 按命名来翻译的话，应该叫高位首尾节点
@@ -2320,6 +2321,10 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 #### Resize方法
 
 ![resize](../picture/dataStructure/HashMap.resize.jpg)
+* oldCap一定是2的整数次幂，2^n
+* newCap是oldCap的两倍，则2^(n+1)
+* hash对数组大小取模(2^n-1) & hash，其实就是取hash的低n位
+![rehash](../picture/dataStructure/rehash推导.png)
 
 ### ConcurrentHashMap
 
