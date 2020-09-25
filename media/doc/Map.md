@@ -2021,6 +2021,13 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         }
 
         /**
+         * 数据从旧数组转移到新数组上来時,旧数组上的数据会根据(e.hash & oldCap) 是否等于0,重新rehash计算其在新数组上的索引位置，分成2类:
+         * 等于0时，则将该树链表头节点放到新数组时的索引位置等于其在旧数组时的索引位置,记未低位区树链表lo开头-low;
+         * 不等于0时,则将该树链表头节点放到新数组时的索引位置等于其在旧数组时的索引位置再加上旧数组长度，记为高位区树链表hi开头high.
+         *
+         * 当红黑树被split分割开成为两个小红黑树后：
+         * 当低位区小红黑树元素个数小于等于6时，开始去树化untreeify操作；
+         * 当低位区小红黑树元素个数大于6且高位区红黑树不为null时，开始树化操作(赋予红黑树的特性)
          * Splits nodes in a tree bin into lower and upper tree bins,
          * or untreeifies if now too small. Called only from resize;
          * see above discussion about split bits and indices.
@@ -2039,30 +2046,41 @@ public class HashMap<K,V> extends AbstractMap<K,V>
             for (TreeNode<K,V> e = b, next; e != null; e = next) {
                 next = (TreeNode<K,V>)e.next;
                 e.next = null;
+                // 区分高低位树链表的核心算法
                 if ((e.hash & bit) == 0) {
+                    // 低位尾部标记为null，表示还未开始处理，此时e是第一个要处理的低位树链表节点，故e.prev等于loTail都等于null.
                     if ((e.prev = loTail) == null)
+                        // 低位树链表的第一个树链表节点
                         loHead = e;
                     else
                         loTail.next = e;
                     loTail = e;
+                    // 低位树元素个数计数
                     ++lc;
                 }
                 else {
+                    // 高位树链表的第一个树链表节点
                     if ((e.prev = hiTail) == null)
                         hiHead = e;
                     else
                         hiTail.next = e;
                     hiTail = e;
+                    // 高位树链表元素个数计数
                     ++hc;
                 }
             }
 
+            // 低位树链表不为null
             if (loHead != null) {
+                // 低位树链表元素个数若小于等于6
                 if (lc <= UNTREEIFY_THRESHOLD)
+                    // 开始去树化操作(就是将元素ThreeNode节点 类型都替换成Node节点类型)
                     tab[index] = loHead.untreeify(map);
                 else {
                     tab[index] = loHead;
+                    // 若高位树链表头节点为空，说明还未处理完高位，还不能开始树化操作
                     if (hiHead != null) // (else is already treeified)
+                        // 低位树链表元素个数若大于6且高位树链表头节点不等于null，开始将低位树链表真正树化成红黑树(前面都只是挂着TreeNode的名号，但实际只是链表结构，还没包含红黑树的特性，在这里才赋予了它红黑树的特性)
                         loHead.treeify(tab);
                 }
             }
@@ -2301,7 +2319,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
 #### Resize方法
 
-
+![resize](../picture/dataStructure/HashMap.resize.jpg)
 
 ### ConcurrentHashMap
 
