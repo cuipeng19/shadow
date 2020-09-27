@@ -2330,4 +2330,12 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
 #### ConcurrentHashMap简介
 
+* java7是Segment数组+HashEntry数组+链表，java8之后是Node数组+链表，当冲突链表达到一定长度时，链表转换为红黑树。
+* 继承AbstractMap，实现ConcurrentMap，提供了相关的添加、删除、修改、遍历等功能。
+* 实现java.io.Serializable接口，支持序列化，能通过序列化去传输。
+
+#### 内部结构
+
+![内部结构](../picture/dataStructure/ConcurrentHashMap结构.png)
+
 #### ConcurrentHashMap源码
