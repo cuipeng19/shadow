@@ -2353,18 +2353,24 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         for (Node<K,V>[] tab = table;;) {
             Node<K,V> f; int n, i, fh;
             if (tab == null || (n = tab.length) == 0)
+                // 数组为空，初始化数组（自旋+CAS)
                 tab = initTable();
+                
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
-                if (casTabAt(tab, i, null,
-                             new Node<K,V>(hash, key, value, null)))
+                // 桶内为空，CAS 放入，不加锁，成功了就直接 break 跳出
+                if (casTabAt(tab, i, null, new Node<K,V>(hash, key, value, null)))
                     break;                   // no lock when adding to empty bin
             }
+            
             else if ((fh = f.hash) == MOVED)
                 tab = helpTransfer(tab, f);
+            
             else {
                 V oldVal = null;
+                // 使用 synchronized 加锁加入节点
                 synchronized (f) {
                     if (tabAt(tab, i) == f) {
+                        // 链表
                         if (fh >= 0) {
                             binCount = 1;
                             for (Node<K,V> e = f;; ++binCount) {
@@ -2385,6 +2391,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
                                 }
                             }
                         }
+                        // 红黑树
                         else if (f instanceof TreeBin) {
                             Node<K,V> p;
                             binCount = 2;
