@@ -10,7 +10,10 @@
         - [Resize方法](#Resize方法)
     - [ConcurrentHashMap](#ConcurrentHashMap)
         - [简介](#ConcurrentHashMap简介)
-        - [核心源码](#ConcurrentHashMap源码)
+        - [内部结构](#ConcurrentHashMap内部结构)
+        - [initTable方法](#ConcurrentHashMap.initTable方法)
+        - [put方法](#ConcurrentHashMap.put方法)
+        - [get方法](#ConcurrentHashMap.get方法)
 
 ## Map
 
@@ -2334,11 +2337,38 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 * 继承AbstractMap，实现ConcurrentMap，提供了相关的添加、删除、修改、遍历等功能。
 * 实现java.io.Serializable接口，支持序列化，能通过序列化去传输。
 
-#### 内部结构
+#### ConcurrentHashMap内部结构
 
 ![内部结构](../picture/dataStructure/ConcurrentHashMap结构.png)
 
-#### Put方法
+#### ConcurrentHashMap.initTable方法
+
+    private final Node<K,V>[] initTable() {
+        Node<K,V>[] tab; int sc;
+        while ((tab = table) == null || tab.length == 0) {
+            // 说明另外的线程执行CAS成功，正在进行初始化。
+            if ((sc = sizeCtl) < 0)
+                // 让出 CPU 使用权
+                Thread.yield(); // lost initialization race; just spin
+            else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
+                try {
+                    if ((tab = table) == null || tab.length == 0) {
+                        int n = (sc > 0) ? sc : DEFAULT_CAPACITY;
+                        @SuppressWarnings("unchecked")
+                        Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
+                        table = tab = nt;
+                        sc = n - (n >>> 2);
+                    }
+                } finally {
+                    sizeCtl = sc;
+                }
+                break;
+            }
+        }
+        return tab;
+    }
+
+#### ConcurrentHashMap.put方法
 
     public V put(K key, V value) {
         return putVal(key, value, false);
@@ -2417,7 +2447,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
         return null;
     }
 
-#### Get方法
+#### ConcurrentHashMap.get方法
 
     public V get(Object key) {
         Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
