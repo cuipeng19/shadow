@@ -1,11 +1,14 @@
 package com.shadow.creepin.api;
 
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author cuipeng 2020/10/12 11:24
  */
+@RestController
 public class AlgorithmController {
 
     /**
@@ -56,5 +59,41 @@ public class AlgorithmController {
         }
         return x==result || x==result/10;
     }
+
+    /**
+     * 罗马转数字
+     * 下一个数字决定上一个数字的正负
+     * 下一个数字>上一个数字，上一个为负
+     */
+    public int romanToInt(String s) {
+        int number = charToInt(s.charAt(0));
+        int result = 0;
+        for(int i = 1; i<s.length(); i++) {
+            int nextNumber = charToInt(s.charAt(i));
+            if(nextNumber > number) {
+                result -= number;
+            } else {
+                result += number;
+            }
+            number = nextNumber;
+        }
+
+        result += number;
+        return result;
+    }
+
+    private int charToInt(char c) {
+        switch (c) {
+            case 'I' : return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
+    }
+
 
 }
