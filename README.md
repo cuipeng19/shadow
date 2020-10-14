@@ -23,6 +23,7 @@ Hoxton.SR6
 - actuator
 - [容器](media/doc/容器.md)
 - [网络](media/doc/network.md)
+- [JVM](media/doc/JVM.md)
 
 
 ## 服务治理

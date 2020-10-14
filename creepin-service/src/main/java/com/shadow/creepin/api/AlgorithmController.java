@@ -95,5 +95,63 @@ public class AlgorithmController {
         }
     }
 
+    /**
+     * 最长公共前缀（一）
+     * 横向扫描
+     * 设定一个前缀，与每个元素比对公共前缀
+     */
+    public static String longestCommonPrefix1(String[] strs) {
+        if(strs==null || strs.length==0) {
+            return "";
+        }
+        String prefix = strs[0];
+        for(int i=1; i<strs.length; i++) {
+            prefix = comparePrefix(prefix, strs[i]);
+            if(prefix.length()==0) {
+                break;
+            }
+        }
+
+        return prefix;
+    }
+
+    public static String comparePrefix(String prefix, String s) {
+        int index = 0;
+
+        int length = Math.min(prefix.length(), s.length());
+        for(int i=0; i<length; i++) {
+            if(prefix.charAt(i) != s.charAt(i)) {
+                break;
+            }
+            index++;
+        }
+
+        return prefix.substring(0, index);
+    }
+
+    /**
+     * 最长公共前缀（二）
+     * 纵向扫描
+     * 所有元素的相同index比对
+     */
+    public String longestCommonPrefix2(String[] strs) {
+        if(strs==null || strs.length==0) {
+            return "";
+        }
+
+        int count = strs[0].length();
+        int length = strs.length;
+        for(int i=0; i<count; i++) {
+            char c = strs[0].charAt(i);
+            for(int j=1; j<length; j++) {
+                if(i==strs[j].length() || strs[j].charAt(i)!=c) {
+                    return strs[0].substring(0, i);
+                }
+            }
+        }
+
+        return strs[0];
+    }
+
 
 }
