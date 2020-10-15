@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author cuipeng 2020/10/12 11:24
@@ -151,6 +152,40 @@ public class AlgorithmController {
         }
 
         return strs[0];
+    }
+
+    /**
+     * 有效的括号
+     * 栈，左括号push，右括号pop
+     * 否：字符串长度为奇数，最后栈不为空，为右括号时栈为空或不匹配
+     */
+    public boolean isValid(String s) {
+        int length = s.length();
+        if(s.length()%2==1) {
+            return false;
+        }
+
+        Stack<Character> stack = new Stack();
+        for(int i=0; i<length; i++) {
+            if(s.charAt(i)=='(' || s.charAt(i)=='[' || s.charAt(i)=='{') {
+                stack.push(s.charAt(i));
+            }
+            if(s.charAt(i)==')' && (stack.empty() || stack.pop()!='(')) {
+                return false;
+            }
+            if(s.charAt(i)==']' && (stack.empty() || stack.pop()!='[')) {
+                return false;
+            }
+            if(s.charAt(i)=='}' && (stack.empty() || stack.pop()!='{')) {
+                return false;
+            }
+        }
+
+        if(!stack.empty()) {
+            return false;
+        }
+
+        return true;
     }
 
 

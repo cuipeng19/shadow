@@ -19,6 +19,7 @@
         - [ICMP的种类](#ICMP的种类)
         - [实际应用](#实际应用)
     - [互联网的路由选择协议](#互联网的路由选择协议)
+        - [内部网关协议RIP](#内部网关协议RIP)
 - [传输层](#传输层)
 - [应用层](#应用层)
 
@@ -123,6 +124,15 @@ tracert：路由跟踪
 路由选择协议分类：  
 内部网关协议(Interior Gateway Protocol)：自治系统内部使用的协议  
 外部网关协议(External Gateway Protocol)：自治系统之间使用的协议
+
+##### 内部网关协议RIP
+
+![RIP协议](../picture/network/RIP协议.jpg)
+Routing Information Protocol：交换相邻路由信息，基于距离矢量算法，用跳数衡量到目的地址的路由距离，范围限制在15跳。
+* 随着互联网规模增大，交换信息开销增大
+* 收敛慢（坏消息传播的慢）
+
+![RIP报文](../picture/network/RIP报文.jpg)
 
 ### 传输层
 
