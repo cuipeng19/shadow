@@ -30,6 +30,7 @@ public class AlgorithmController {
     /**
      * 整数反转
      * x%10弹出原数字末尾，result*10 + x%10推入新数字末尾
+     * 循环结束：原数字=0
      */
     public int reverse(int x) {
         int result = 0;
@@ -46,8 +47,9 @@ public class AlgorithmController {
 
     /**
      * 回文数
-     * 反转一半数字，原数字<=新数字则结束
-     * 原数字<0 或 非0且末尾=0，返回否
+     * 反转一半数字，x%10弹出原数字末尾，result*10 + x%10推入新数字末尾
+     * 循环结束：原数字<=新数字
+     * 否：原数字<0 或 非0且末尾=0
      */
     public boolean isPalindrome(int x) {
         if(x<0 || (x!=0 && x%10==0)) {
@@ -63,7 +65,7 @@ public class AlgorithmController {
 
     /**
      * 罗马转数字
-     * 下一个数字决定上一个数字的正负
+     * 下一个数字决定上一个数字的正负，最后一个数字为正
      * 下一个数字>上一个数字，上一个为负
      */
     public int romanToInt(String s) {
@@ -157,7 +159,7 @@ public class AlgorithmController {
     /**
      * 有效的括号
      * 栈，左括号push，右括号pop
-     * 否：字符串长度为奇数，最后栈不为空，为右括号时栈为空或不匹配
+     * 否：字符串长度为奇数，最后栈非空，为右括号时栈为空或不匹配
      */
     public boolean isValid(String s) {
         int length = s.length();
@@ -188,5 +190,35 @@ public class AlgorithmController {
         return true;
     }
 
+    /**
+     * 合并两个有序链表
+     * 循环，指针指向l1与l2较小元素，较小链表后移一位，其中一条为空时指向非空链表
+     * 结束循环：其中一条链表为空
+     */
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {}
+        ListNode(int val) { this.val = val; }
+        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    }
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode();
+        ListNode index = head;
 
+        while(l1!=null && l2!=null) {
+            if(l1.val<=l2.val) {
+                index.next = l1;
+                l1 = l1.next;
+            } else {
+                index.next = l2;
+                l2 = l2.next;
+            }
+            index = index.next;
+        }
+
+        index.next = l1==null ? l2 : l1;
+
+        return head.next;
+    }
 }
