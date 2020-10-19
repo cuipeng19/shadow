@@ -221,4 +221,23 @@ public class AlgorithmController {
 
         return head.next;
     }
+
+
+    /**
+     * 删除排序数组中的重复项
+     * 快慢指针，num[i]==num[j]时直接跳过，否则i++、num[i]=num[j]
+     * 数组长度为0，直接返回0
+     */
+    public int removeDuplicates(int[] nums) {
+        if(nums.length==0) return 0;
+        int i = 0;
+        for(int j=1; j<nums.length; j++) {
+            if(nums[i]!=nums[j]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+
 }
