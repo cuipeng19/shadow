@@ -298,4 +298,25 @@ public class AlgorithmController {
         return -1;
     }
 
+    /**
+     * 搜索插入位置
+     * 二分查找
+     */
+    public int searchInsert(int[] nums, int target) {
+        int l = nums.length;
+
+        int left = 0, right = l-1, result = l;
+        while (left<=right) {
+            int middle = ((right-left)>>1) + left;
+            if(target<=nums[middle]) {
+                result = middle;
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+
+        return result;
+    }
+
 }
