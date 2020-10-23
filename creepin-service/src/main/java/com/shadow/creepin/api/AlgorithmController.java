@@ -258,4 +258,44 @@ public class AlgorithmController {
         return i;
     }
 
+    /**
+     * 实现strStr()
+     * haystack为空返回-1，needle为空字符串返回0
+     * 滑动窗口，匹配则返回i
+     */
+    public int strStr(String haystack, String needle) {
+        if(needle==null || needle.length()==0) return 0;
+        if(haystack==null || haystack.length()==0) return -1;
+        int length = haystack.length(), slide = needle.length();
+
+        for(int i=0; i<= length-slide; i++) {
+            if(haystack.substring(i, slide+i).equals(needle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 实现strStr()
+     * haystack为空返回-1，needle为空字符串返回0，haystack长度<needle长度返回-1
+     * 双指针，比较needle每一位字符，needle循环结束则返回i
+     */
+    public int strStr2(String haystack, String needle) {
+        if(needle==null || needle.length()==0) return 0;
+        if(haystack==null || haystack.length()==0) return -1;
+        int length = haystack.length(), slide = needle.length();
+
+        if(length<slide) return -1;
+
+        for(int i=0; i<=length-slide; i++) {
+            for(int j=0; j<slide; j++) {
+                if(haystack.charAt(i+j)!=needle.charAt(j)) break;
+                if(j+1==slide) return i;
+            }
+        }
+
+        return -1;
+    }
+
 }
