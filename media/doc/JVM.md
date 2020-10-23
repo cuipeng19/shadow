@@ -182,3 +182,42 @@ Parallel Scavenge的老年代版本。
 
 ## JDK监控和故障处理
 
+### JDK命令行工具
+
+* jps(JVM Process Status)：查看所有Java进程的启动类、传入参数、JVM参数等  
+jps -l：输出主类全名，如果进程执行的是jar包，输出jar路径  
+jps -v：输出进程启动时JVM参数  
+jps -m：输出传递给Java进程main函数的参数
+* jstat(JVM Statistics Monitoring Tool)：用于收集JVM各方面的运行数据(进程中的类信息、内存、垃圾收集、JIT编译)  
+jstat -class vmid：显示ClassLoader的相关信息  
+jstat -compiler vmid：显示JIT编译的相关信息  
+jstat -gc vmid：显示与GC相关的堆信息  
+jstat -gccapacity vmid：显示各个代的容量及使用情况  
+jstat -gcnew vmid：显示新生代信息  
+jstat -gcnewcapacity vmid：显示新生代大小与使用情况  
+jstat -gcold vmid：显示老年代信息  
+jstat -gcoldcapacity vmid：显示老年代大小  
+jstat -gcutil：显示垃圾收集信息
+* jinfo：实时的查看和调整虚拟机各项参数  
+jinfo vmid：输出当前jvm进程的系统属性和全部参数  
+jinfo -flag PrintGC vmid：查看jvm进程是否开启打印GC日志，+|-PrintGC可以动态修改
+* jmap(Memory Map for Java)：生成堆转储快照  
+jmap -heap vmid：堆内存信息  
+jmap -dump:live,format=b,file=heap.hprof vmid：生成快照
+* jhat：分析heapdump文件  
+建立一个HTTP/HTML服务器，可以在浏览器上查看分析结果，访问http://localhost:7000
+* jstack(Stack Trace for Java)：生成线程快照  
+jstack vmid >1.txt：输出线程快照文件
+
+### JDK可视化分析工具
+
+* JConsole：Java监视与管理控制台  
+JConsole基于JMX的可视化监视、管理工具。  
+```jvm
+-Djava.rmi.server.hostname=外网访问 ip 地址 
+-Dcom.sun.management.jmxremote.port=60001   //监控的端口号
+-Dcom.sun.management.jmxremote.authenticate=false   //关闭认证
+-Dcom.sun.management.jmxremote.ssl=false
+```
+* Visual VM：多合一故障处理工具  
+提供JVM上运行的Java应用程序的详细信息。
