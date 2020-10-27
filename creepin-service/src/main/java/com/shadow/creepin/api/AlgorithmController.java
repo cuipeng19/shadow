@@ -319,4 +319,34 @@ public class AlgorithmController {
         return result;
     }
 
+    /**
+     * 外观数列
+     * 循环计数，更新基础数列(currentBuilder,prev,count)
+     * 循环统计下一数列,prev==current count++,否则currentBuilder拼接count+pre,count初始化,prev=current
+     */
+    public String countAndSay(int n) {
+        String base = "1";
+
+        for(int i=1; i<n; i++) {
+            StringBuilder currentBuilder = new StringBuilder();
+            char prev = base.charAt(0);
+            int count = 1;
+            for(int j=1; j<base.length(); j++) {
+                char current = base.charAt(j);
+                if(prev==current) {
+                    count++;
+                } else {
+                    currentBuilder.append(count).append(prev);
+                    prev = current;
+                    count = 1;
+                }
+
+            }
+            currentBuilder.append(count).append(prev);
+            base = currentBuilder.toString();
+        }
+
+        return base;
+    }
+
 }
