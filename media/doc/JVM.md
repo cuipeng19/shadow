@@ -25,6 +25,15 @@
     - [JDK命令行工具](#JDK命令行工具)
     - [JDK可视化分析工具](#JDK可视化分析工具)
 - [类文件结构](#类文件结构)
+    - [概述](#概述)
+    - [魔数](#魔数)
+    - [Class文件版本](#Class文件版本)
+    - [常量池](#常量池)
+    - [访问标志](#访问标志)
+    - [当前类索引,父类索引与接口索引集合](#当前类索引,父类索引与接口索引集合)
+    - [字段表集合](#字段表集合)
+    - [方法表集合](#方法表集合)
+    - [属性表集合](#属性表集合)
 
 ## Java内存区域
 
@@ -227,4 +236,136 @@ JConsole基于JMX的可视化监视、管理工具。
 
 
 ## 类文件结构
+
+JVM运行字节码文件(.class文件)
+
+### 概述
+
+类文件由单个ClassFile组成
+```
+ClassFile {
+    u4             magic; //Class 文件的标志
+    u2             minor_version;//Class 的小版本号
+    u2             major_version;//Class 的大版本号
+    u2             constant_pool_count;//常量池的数量
+    cp_info        constant_pool[constant_pool_count-1];//常量池
+    u2             access_flags;//Class 的访问标记
+    u2             this_class;//当前类
+    u2             super_class;//父类
+    u2             interfaces_count;//接口
+    u2             interfaces[interfaces_count];//一个类可以实现多个接口
+    u2             fields_count;//Class 文件的字段属性
+    field_info     fields[fields_count];//一个类会可以有多个字段
+    u2             methods_count;//Class 文件的方法数量
+    method_info    methods[methods_count];//一个类可以有个多个方法
+    u2             attributes_count;//此类的属性表中的属性数
+    attribute_info attributes[attributes_count];//属性表集合
+}
+```
+![Class文件字节码结构组织](../picture/jvm/Class文件字节码结构组织.png)
+
+### 魔数
+
+```
+u4             magic; //Class 文件的标志
+```
+Magic Number，每个Class文件的头四个字节，确定这个文件是否为一个能被虚拟机接收的Class文件
+
+### Class文件版本
+
+```
+u2             minor_version;//Class 的小版本号
+u2             major_version;//Class 的大版本号
+```
+四个字节存储Class文件的版本号，高版本的JVM可执行低版本编译生成的Class文件
+
+### 常量池
+
+```
+u2             constant_pool_count;//常量池的数量
+cp_info        constant_pool[constant_pool_count-1];//常量池
+```
+常量池主要存放两大常量：字面量、符号引用。字面量接近Java的常量，如字符串，声明为final的常量。  
+符号引用属于编译原理的概念，包括三类常量：类和接口的全限定名、字段的名称和描述符、方法的名称和描述符  
+常量池中的每个项常量都是一个表，这14种表共同特点：开始的第一位是一个u1的标志位，tag来标识常量的类型
+```
+类型                             标志（tag）	描述
+CONSTANT_utf8_info               1	        UTF-8编码的字符串
+CONSTANT_Integer_info            3	        整形字面量
+CONSTANT_Float_info              4	        浮点型字面量
+CONSTANT_Long_info               5	        长整型字面量
+CONSTANT_Double_info	         6	        双精度浮点型字面量
+CONSTANT_Class_info              7	        类或接口的符号引用
+CONSTANT_String_info	         8	        字符串类型字面量
+CONSTANT_Fieldref_info	         9	        字段的符号引用
+CONSTANT_Methodref_info	         10	        类中方法的符号引用
+CONSTANT_InterfaceMethodref_info 11	        接口中方法的符号引用
+CONSTANT_NameAndType_info        12	        字段或方法的符号引用
+CONSTANT_MothodType_info         16	        标志方法类型
+CONSTANT_MethodHandle_info       15	        表示方法句柄
+CONSTANT_InvokeDynamic_info      18	        表示一个动态方法调用点
+```
+javap -v Class文件，查看常量池中信息
+
+### 访问标志
+
+```
+u2             access_flags;//Class 的访问标记
+```
+识别类或接口层次的访问信息：Class是类还是接口，是否为public或abstract类型，是否声明为final  
+类访问和属性修饰符：
+![类访问和属性修饰符](../picture/jvm/类访问和属性修饰符.png)
+
+### 当前类索引,父类索引与接口索引集合
+
+```
+u2             this_class;//当前类
+u2             super_class;//父类
+u2             interfaces_count;//接口
+u2             interfaces[interfaces_count];//一个类可以实现多个接口
+```
+类索引确定这个类的全限定名，父类索引确定这个类的父类的全限定名，除了java.lang.Object，所有Java类的父类索引都不为0。  
+接口索引集合描述这个类实现了哪些接口，被实现的接口按implements（本身是接口则是extends）的顺序从左到右排列在接口索引集合中。
+
+### 字段表集合
+
+```
+u2             fields_count;//Class 文件的字段属性
+field_info     fields[fields_count];//一个类会可以有多个字段
+```
+field info字段表描述接口或类中声明的变量。字段包括类级变量、实例变量，不包括方法内部声明的局部变量。
+![字段表结构](../picture/jvm/字段表结构.png)
+* access_flags  
+字段的作用域(public,private,protected)，实例变量还是类变量(static)，可否被序列化(transient)，可变性(final)，可见性(volatile,是否强制从主内存读写)
+* name_index  
+对常量池的引用，表示的字段的名称
+* descriptor_index  
+对常量池的引用，表示字段和方法的描述符  
+* attributes_count  
+存放属性个数，一个字段会拥有额外的属性
+* attributes[attributes_count]  
+存放属性具体内容
+
+字段表的access_flags取值：
+![字段表的access_flags取值](../picture/jvm/字段表的access_flags取值.png)
+
+### 方法表集合
+
+```
+u2             methods_count;//Class 文件的方法数量
+method_info    methods[methods_count];//一个类可以有个多个方法
+```
+采用字段表的描述方式。
+![方法表结构](../picture/jvm/方法表结构.png)
+方法表的access_flags取值：
+![方法表的access_flags取值](../picture/jvm/方法表的access_flags取值.png)
+
+### 属性表集合
+
+```
+u2             attributes_count;//此类的属性表中的属性数
+attribute_info attributes[attributes_count];//属性表集合
+```
+在Class文件、字段表、方法表可携带自己的属性表集合，以描述专有信息。  
+不要求有严格的顺序，只要属性名不重复，任何人实现的编译器都可以向属性表中自定义属性信息，JVM运行时会忽略不认识的属性。
 
