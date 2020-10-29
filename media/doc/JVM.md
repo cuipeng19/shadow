@@ -428,3 +428,13 @@ JVM自带的类加载器加载的类不会被卸载，自定义类加载器加�
 
 
 ## 类加载器
+
+* BootstrapClassLoader(启动类加载器)  
+最顶层的加载器，由C++实现，负责加载%JAVA_HOME%/lib目录下的jar包和类、-Xbootclasspath参数指定的路径中的所有类。
+* ExtensionClassLoader(扩展类加载器)  
+主要负责加载%JAVA_HOME%/lib/ext目录下的jar包和类、被java.ext.dirs系统变量指定的路径下的jar包。
+* AppClassLoader(应用程序类加载器)  
+面向用户的加载器，负责加载当前应用classpath下的jar包和类。
+
+### 双亲委派模型
+
