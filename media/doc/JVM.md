@@ -42,6 +42,10 @@
     - [解析](#解析)
     - [初始化](#初始化)
     - [卸载](#卸载)
+- [类加载器](#类加载器)
+    - [双亲委派模型](#双亲委派模型)
+    - [双亲委派模型实现源码](#双亲委派模型实现源码)
+    - [自定义类加载器](#自定义类加载器)
 
 ## Java内存区域
 
@@ -429,6 +433,7 @@ JVM自带的类加载器加载的类不会被卸载，自定义类加载器加�
 
 ## 类加载器
 
+除了BootstrapClassLoader，其他类加载器均由java实现并继承自java.lang.ClassLoader。
 * BootstrapClassLoader(启动类加载器)  
 最顶层的加载器，由C++实现，负责加载%JAVA_HOME%/lib目录下的jar包和类、-Xbootclasspath参数指定的路径中的所有类。
 * ExtensionClassLoader(扩展类加载器)  
@@ -438,3 +443,54 @@ JVM自带的类加载器加载的类不会被卸载，自定义类加载器加�
 
 ### 双亲委派模型
 
+Parents Delegation Model  
+加载时首先把请求委派给父类的加载器loadClass()处理，所有的请求最终都会传送到顶层的启动类加载器BootstapClassLoader,当父类加载器无法处理时，才由子类处理。
+![双亲委派模型](../picture/jvm/双亲委派模型.png)
+
+可以避免类的重复加载。
+
+### 双亲委派模型实现源码
+```
+protected Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException
+    {
+        synchronized (getClassLoadingLock(name)) {
+            // 首先，检查请求的类是否已经被加载过
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                long t0 = System.nanoTime();
+                try {
+                    if (parent != null) {
+                        // 父加载器不为空，调用父加载器loadClass()方法处理
+                        c = parent.loadClass(name, false);
+                    } else {
+                        // 父加载器为空，使用启动类加载器 BootstrapClassLoader 加载
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // ClassNotFoundException thrown if class not found
+                    // from the non-null parent class loader
+                }
+
+                if (c == null) {
+                    // 自己尝试加载
+                    long t1 = System.nanoTime();
+                    c = findClass(name);
+
+                    // this is the defining class loader; record the stats
+                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
+```
+
+### 自定义类加载器
+
+需要继承ClassLoader，不打破双亲委派模型，重写findClass()，打破双亲委派模型，重写loadClass()。
