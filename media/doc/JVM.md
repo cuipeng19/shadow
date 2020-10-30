@@ -433,9 +433,11 @@ JVM自带的类加载器加载的类不会被卸载，自定义类加载器加�
 
 ## 类加载器
 
-除了BootstrapClassLoader，其他类加载器均由java实现并继承自java.lang.ClassLoader。
+除了BootstrapClassLoader，其他类加载器均由java实现并继承自java.lang.ClassLoader。  
+判断两个Class相同：类名相同，由一个类加载器加载。
+
 * BootstrapClassLoader(启动类加载器)  
-最顶层的加载器，由C++实现，负责加载%JAVA_HOME%/lib目录下的jar包和类、-Xbootclasspath参数指定的路径中的所有类。
+最顶层的加载器，由C++实现，嵌入到JVM内核中，负责加载%JAVA_HOME%/lib目录下的jar包和类、-Xbootclasspath参数指定的路径中的所有类。
 * ExtensionClassLoader(扩展类加载器)  
 主要负责加载%JAVA_HOME%/lib/ext目录下的jar包和类、被java.ext.dirs系统变量指定的路径下的jar包。
 * AppClassLoader(应用程序类加载器)  
@@ -494,3 +496,16 @@ protected Class<?> loadClass(String name, boolean resolve)
 ### 自定义类加载器
 
 需要继承ClassLoader，不打破双亲委派模型，重写findClass()，打破双亲委派模型，重写loadClass()。
+
+
+## JVM参数
+
+* 指定堆内存：-Xms -Xmx，例：-Xms256m
+* 指定新生代内存：-XX:NewSize -XX:MaxNewSize，例：-XX:NewSize=256m。-Xmn，例：-Xmn256m
+* 指定元空间：-XX:MetaspaceSize -XX:MaxMetaspaceSize
+* 指定垃圾收集器：-XX:+UseG1GC
+* GC记录  
+-XX:UseGCLogFileRotation
+-XX:NumberOfGCLogFiles=
+-XX:GCLogFileSize=
+-Xloggc:/path/gc.log
