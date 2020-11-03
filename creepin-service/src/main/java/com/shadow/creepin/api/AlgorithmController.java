@@ -156,6 +156,7 @@ public class AlgorithmController {
         return strs[0];
     }
 
+
     /**
      * 有效的括号
      * 栈，左括号push，右括号pop
@@ -189,6 +190,7 @@ public class AlgorithmController {
 
         return true;
     }
+
 
     /**
      * 合并两个有序链表
@@ -240,6 +242,7 @@ public class AlgorithmController {
         return i + 1;
     }
 
+
     /**
      * 移除元素
      * 循环计数，num[j]==val跳过，否则对i位置赋值并右移一位
@@ -257,6 +260,7 @@ public class AlgorithmController {
         }
         return i;
     }
+
 
     /**
      * 实现strStr()
@@ -298,6 +302,7 @@ public class AlgorithmController {
         return -1;
     }
 
+
     /**
      * 搜索插入位置
      * 二分查找
@@ -318,6 +323,7 @@ public class AlgorithmController {
 
         return result;
     }
+
 
     /**
      * 外观数列
@@ -340,13 +346,28 @@ public class AlgorithmController {
                     prev = current;
                     count = 1;
                 }
-
             }
             currentBuilder.append(count).append(prev);
             base = currentBuilder.toString();
         }
 
         return base;
+    }
+
+
+    /**
+     * 最大子序和
+     * f(i) = max{f(i-1)+ai, ai}，只用一个变量pre维护f(i-1)
+     */
+    public int maxSubArray(int[] nums) {
+        int pre = 0, current = nums[0];
+
+        for(int i : nums) {
+            pre = Math.max(pre + i, i);
+            current = Math.max(current, pre);
+        }
+
+        return current;
     }
 
 }
