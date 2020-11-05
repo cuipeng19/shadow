@@ -370,4 +370,24 @@ public class AlgorithmController {
         return current;
     }
 
+
+    /**
+     * 最后一个单词的长度
+     * 从右向左遍历，从不是空格的字符开始计数
+     */
+    public int lengthOfLastWord(String s) {
+        int l, count = 0;
+        if(s==null || (l=s.length())==0) return 0;
+
+        for (int i=l-1; i>=0; i--) {
+            if(s.charAt(i)==' ') {
+                if(count==0) continue;
+                break;
+            }
+            count++;
+        }
+
+        return count;
+    }
+
 }
