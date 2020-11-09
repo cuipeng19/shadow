@@ -411,4 +411,30 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 二进制求和
+     *
+     */
+//    public String addBinary(String a, String b) {
+//
+//    }
+
+
+    /**
+     * 只出现一次的数字
+     * HashMap统计
+     * 3倍HashSet和-原数组和
+     * 位运算
+     */
+    public int singleNumber(int[] nums) {
+        int once = 0, twice = 0;
+
+        for(int num : nums) {
+            once = ~twice & (once ^ num);
+            twice = ~once & (twice ^ num);
+        }
+
+        return once;
+    }
+
 }
