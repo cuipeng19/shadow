@@ -419,6 +419,26 @@ public class AlgorithmController {
         return Integer.toBinaryString(Integer.parseInt(a,2) + Integer.parseInt(b,2));
     }
 
+    /**
+     * 二进制求和
+     * 同列相加进位, l-1-i取末位
+     */
+    public String addBinary2(String a, String b) {
+        StringBuffer buffer = new StringBuffer();
+
+        int l = Math.max(a.length(), b.length()), carry = 0, al = a.length(), bl = b.length();
+
+        for(int i=0; i<l; i++) {
+            int temp = (i<al ? (a.charAt(al-1-i)-'0') : 0) + (i<bl ? (b.charAt(bl-1-i)-'0') : 0) + carry;
+            carry = temp>=2 ? 1 : 0;
+            buffer.append(temp % 2);
+        }
+
+        if(carry>0) buffer.append("1");
+
+        return buffer.reverse().toString();
+    }
+
 
     /**
      * 只出现一次的数字
