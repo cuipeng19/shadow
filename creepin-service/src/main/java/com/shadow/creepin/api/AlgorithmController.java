@@ -457,4 +457,36 @@ public class AlgorithmController {
         return once;
     }
 
+
+    /**
+     * x的平方根
+     * = x的1/2次幂 = e的lnx/2次幂
+     */
+    public int mySqrt(int x) {
+        if(x==0) return 0;
+
+        int result = (int) Math.exp(0.5 * Math.log(x));
+        return (long)(result+1)*(result+1) <= x ? result+1 : result;
+    }
+
+    /**
+     * x的平方根
+     * 二分查找 k^2 <= x 的最大K值
+     */
+    public static int mySqrt2(int x) {
+        int left = 0, right = x, result = 0;
+
+        while(left <= right) {
+            int middle = ((right-left)>>1) + left;
+            if((long)middle*middle <= x) {
+                result = middle;
+                left = middle + 1;
+            } else {
+                right = middle - 1;
+            }
+        }
+
+        return result;
+    }
+
 }
