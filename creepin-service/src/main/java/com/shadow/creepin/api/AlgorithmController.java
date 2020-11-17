@@ -194,7 +194,7 @@ public class AlgorithmController {
 
     /**
      * 合并两个有序链表
-     * 循环，指针指向l1与l2较小元素，较小链表后移一位，其中一条为空时指向非空链表
+     * 指针指向l1与l2较小元素，较小链表后移一位，其中一条为空时指向非空链表
      * 结束循环：其中一条链表为空
      */
     public class ListNode {
@@ -487,6 +487,23 @@ public class AlgorithmController {
         }
 
         return result;
+    }
+
+
+    /**
+     * 爬楼梯
+     * 动态规划：f(x) = f(x-1) + f(x-2)
+     */
+    public int climbStairs(int n) {
+        int p = 0, q = 0, r = 1;
+
+        for(int i=0; i<n; i++) {
+            p = q;
+            q = r;
+            r = p + q;
+        }
+
+        return r;
     }
 
 }
