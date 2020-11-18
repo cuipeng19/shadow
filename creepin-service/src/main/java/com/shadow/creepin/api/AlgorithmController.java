@@ -227,7 +227,7 @@ public class AlgorithmController {
 
     /**
      * 删除排序数组中的重复项
-     * 快慢指针，num[i]==num[j]时直接跳过，否则i++、num[i]=num[j]
+     * 双指针，num[i]==num[j]时直接跳过重复项，否则i++、num[i]=num[j]
      * 数组长度为0，直接返回0
      */
     public int removeDuplicates(int[] nums) {
@@ -240,6 +240,24 @@ public class AlgorithmController {
             }
         }
         return i + 1;
+    }
+
+
+    /**
+     * 删除排序链表中的重复元素
+     */
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode index = head;
+
+        while(index!=null && index.next!=null) {
+            if(index.val==index.next.val) {
+                index.next = index.next.next;
+            } else {
+                index = index.next;
+            }
+        }
+
+        return head;
     }
 
 
