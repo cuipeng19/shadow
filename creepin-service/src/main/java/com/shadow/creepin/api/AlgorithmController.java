@@ -2,6 +2,7 @@ package com.shadow.creepin.api;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -189,6 +190,56 @@ public class AlgorithmController {
         }
 
         return true;
+    }
+
+
+    /**
+     * 合并两个有序数组
+     * 合并后排序
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        System.arraycopy(nums2, 0, nums1, m, n);
+        Arrays.sort(nums1);
+    }
+
+    /**
+     * 合并两个有序数组
+     * 双指针  前到后
+     * 剩余的数组部分添加到nums1尾部
+     */
+    public void merge2(int[] nums1, int m, int[] nums2, int n) {
+        int p = 0, q = 0, i = 0;
+
+        int[] temp = new int[m];
+        System.arraycopy(nums1, 0, temp, 0, m);
+
+        while ((p<m) && (q<n)) {
+            nums1[i++] = temp[p] < nums2[q] ? temp[p++] : nums2[q++];
+        }
+
+        if(p < m) {
+            System.arraycopy(temp, p, nums1, i, m-p);
+        }
+        if(q < n) {
+            System.arraycopy(nums2, q, nums1, i, n-q);
+        }
+    }
+
+    /**
+     * 合并两个有序数组
+     * 双指针  后到前
+     * nums1剩余不用处理(nums1排好序且是插入到nums1)，nums2剩余的数组部分添加到nums1头部
+     */
+    public void merge3(int[] nums1, int m, int[] nums2, int n) {
+        int p = m-1, q = n-1, i = m+n-1;
+
+        while ((p>=0) && (q>=0)) {
+            nums1[i--] = nums1[p] > nums2[q] ? nums1[p--] : nums2[q--];
+        }
+
+        if(q >= 0) {
+            System.arraycopy(nums2, 0, nums1, 0, q+1);
+        }
     }
 
 
