@@ -5,6 +5,9 @@ Hoxton.SR6
 
 ## 目录
 
+- [CAP及BASE](#CAP及BASE)
+    - [CAP](#CAP)
+    - [BASE](#BASE)
 - [服务治理](#服务治理)
     - [服务注册](#服务注册)
     - [服务发现](#服务发现)
@@ -33,7 +36,7 @@ Hoxton.SR6
 起源于2000年，加州大学伯克利分校的Eric Brewer教授在分布式计算原理研讨会(PODC)提出，又称布鲁尔定理(Brewer's theorem)。  
 两年后，麻省理工学院的Seth Gilbert 和 Nancy Lynch发表了布鲁尔猜想的证明，CAP理论正式成为分布式领域的定理。
 * Consistency(一致性) 所有节点访问同一份最新的数据副本
-* Availability(可用性) 非故障节点在合理的时间内返回合理的响应(不是错误或者超时)
+* Availability(可用性) 非故障节点在合理的时间内返回合理的响应
 * Partition Tolerance(分区容忍性) 分布式系统出现网络分区的时候，仍然能够对外提供服务
 
 分区容错是基础，一致性和可用性二选一，即CP/AP架构。
