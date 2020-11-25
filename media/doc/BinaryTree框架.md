@@ -16,7 +16,6 @@
 
 二叉树算法的设计的总路线：明确一个节点要做的事情，然后剩下的事抛给框架。
 
-
     void traverse(TreeNode root) {
         // root 需要做什么？在这做。
         // 其他的不用 root 操心，抛给框架
@@ -50,6 +49,7 @@
         return isSameTree(root1.left, root2.left)
             && isSameTree(root1.right, root2.right);
     }
+    
 借助框架，上面这两个例子不难理解吧？如果可以理解，那么所有二叉树算法你都能解决。
 
 二叉搜索树（Binary Search Tree，简称 BST）是一种很常用的的二叉树。它的定义是：一个二叉树中，任意节点的值要大于等于左子树所有节点的值，且要小于等于右边子树的所有节点的值。
@@ -64,7 +64,6 @@
 
 这里是有坑的哦，我们按照刚才的思路，每个节点自己要做的事不就是比较自己和左右孩子吗？看起来应该这样写代码：
 
-
     boolean isValidBST(TreeNode root) {
         if (root == null) return true;
         if (root.left != null && root.val <= root.left.val) return false;
@@ -75,12 +74,9 @@
     }
 但是这个算法出现了错误，BST 的每个节点应该要小于右边子树的所有节点，下面这个二叉树显然不是 BST，但是我们的算法会把它判定为 BST。
 
-
-
 出现错误，不要慌张，框架没有错，一定是某个细节问题没注意到。我们重新看一下 BST 的定义，root 需要做的不只是和左右子节点比较，而是要整个左子树和右子树所有节点比较。怎么办，鞭长莫及啊！
 
 这种情况，我们可以使用辅助函数，增加函数参数列表，在参数中携带额外信息，请看正确的代码：
-
 
     boolean isValidBST(TreeNode root) {
         return isValidBST(root, null, null);
@@ -97,7 +93,6 @@
 
 根据我们的指导思想，可以这样写代码：
 
-
     boolean isInBST(TreeNode root, int target) {
         if (root == null) return false;
         if (root.val == target) return true;
@@ -108,7 +103,6 @@
 这样写完全正确，充分证明了你的框架性思维已经养成。现在你可以考虑一点细节问题了：如何充分利用信息，把 BST 这个“左小右大”的特性用上？
 
 很简单，其实不需要递归地搜索两边，类似二分查找思想，根据 target 和 root.val 的大小比较，就能排除一边。我们把上面的思路稍稍改动：
-
 
     boolean isInBST(TreeNode root, int target) {
         if (root == null) return false;
@@ -121,7 +115,6 @@
         // root 该做的事做完了，顺带把框架也完成了，妙
     }
 于是，我们对原始框架进行改造，抽象出一套针对 BST 的遍历框架：
-
 
     void BST(TreeNode root, int target) {
         if (root.val == target)
@@ -136,7 +129,6 @@
 对数据结构的操作无非遍历 + 访问，遍历就是“找”，访问就是“改”。具体到这个问题，插入一个数，就是先找到插入位置，然后进行插入操作。
 
 上一个问题，我们总结了 BST 中的遍历框架，就是“找”的问题。直接套框架，加上“改”的操作即可。一旦涉及“改”，函数就要返回 TreeNode 类型，并且对递归调用的返回值进行接收。
-
 
     TreeNode insertIntoBST(TreeNode root, int val) {
         // 找到空位置插入新节点
