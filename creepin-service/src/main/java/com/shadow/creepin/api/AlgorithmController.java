@@ -2,10 +2,7 @@ package com.shadow.creepin.api;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author cuipeng 2020/10/12 11:24
@@ -602,22 +599,72 @@ public class AlgorithmController {
 
         return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
+    public boolean isSameTree2(TreeNode p, TreeNode q) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(p);
+        queue.offer(q);
+
+        while (!queue.isEmpty()) {
+            p = queue.poll();
+            q = queue.poll();
+
+            if(p==null && q==null) continue;
+            if(p==null || q==null) return false;
+            if(p.val != q.val) return false;
+
+            queue.offer(p.left);
+            queue.offer(q.left);
+
+            queue.offer(p.right);
+            queue.offer(q.right);
+        }
+
+        return true;
+    }
+
 
 
     /**
      * 对称二叉树
-     *
      */
     public boolean isSymmetric(TreeNode root) {
         if(root==null) return true;
         return checkSymmetric(root.left, root.right);
     }
+    /**
+     * 递归
+     */
     public boolean checkSymmetric(TreeNode p, TreeNode q) {
         if(p==null && q==null) return true;
         if(p==null || q==null) return false;
         if(p.val != q.val) return false;
 
         return checkSymmetric(p.left, q.right) && checkSymmetric(p.right, q.left);
+    }
+    /**
+     * 迭代
+     */
+    public boolean checkSymmetric2(TreeNode p, TreeNode q) {
+        Queue<TreeNode> queue = new LinkedList();
+        queue.offer(p);
+        queue.offer(q);
+
+        while (!queue.isEmpty()) {
+            p = queue.poll();
+            q = queue.poll();
+
+            if(p==null && q==null) continue;
+            if(p==null || q==null) return false;
+            if(p.val != q.val) return false;
+
+            queue.offer(p.left);
+            queue.offer(q.right);
+
+            queue.offer(p.right);
+            queue.offer(q.left);
+        }
+
+        return true;
     }
 
 }
