@@ -5,6 +5,7 @@ Hoxton.SR6
 
 ## 目录
 
+- [每周一问](media/doc/weeklyQuestion.md)
 - [CAP及BASE](#CAP及BASE)
     - [CAP](#CAP)
     - [BASE](#BASE)
