@@ -700,4 +700,33 @@ public class AlgorithmController {
         return count;
     }
 
+
+    /**
+     * 二叉树的层次遍历  反向
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> orderList = new LinkedList<>();
+        if(root==null) return orderList;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int size = q.size();
+
+            while (size-->0) {
+                TreeNode node = q.poll();
+                list.add(node.val);
+
+                if(node.left!=null) q.offer(node.left);
+                if(node.right!=null) q.offer(node.right);
+            }
+            orderList.add(0, list);
+        }
+
+        return orderList;
+    }
+
+
 }
