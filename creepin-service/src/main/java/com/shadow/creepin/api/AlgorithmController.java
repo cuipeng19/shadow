@@ -729,4 +729,24 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 有序数组转换为二叉搜索树
+     * 二叉搜索树的中序遍历是升序序列，选取中间数字作为根节点使左右子树个数相差<=1
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return sortedArrayToBST(nums, 0, nums.length-1);
+    }
+    private TreeNode sortedArrayToBST(int[] nums, int left, int right) {
+        if(left>right) {
+            return null;
+        }
+
+        int middle = (left+right)/2;
+        TreeNode node = new TreeNode(nums[middle]);
+        node.left = sortedArrayToBST(nums, left, middle-1);
+        node.right = sortedArrayToBST(nums, middle+1, right);
+
+        return node;
+    }
+
 }
