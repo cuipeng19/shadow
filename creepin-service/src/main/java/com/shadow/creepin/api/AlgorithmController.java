@@ -749,4 +749,33 @@ public class AlgorithmController {
         return node;
     }
 
+
+    /**
+     * 判断平衡二叉树
+     * 从顶至底，子树高度相差2以上，则返回false
+     */
+    public boolean isBalanced(TreeNode root) {
+        if(root==null) return true;
+        if(Math.abs(maxDepth(root.left)-maxDepth(root.right)) > 1) return false;
+
+        return isBalanced(root.left) && isBalanced(root.right);
+    }
+
+    /**
+     * 判断平衡二叉树
+     * 从底至顶，子树高度相差2以上，则返回-1
+     */
+    public boolean isBalanced2(TreeNode root) {
+        return checkBalance2(root) != -1;
+    }
+    private int checkBalance2(TreeNode root) {
+        if(root==null) return 0;
+        int left = checkBalance2(root.left);
+        if(left==-1) return -1;
+        int right = checkBalance2(root.right);
+        if(right==-1) return -1;
+
+        return Math.abs(left-right) <= 1 ? Math.max(left, right) + 1 : -1;
+    }
+
 }
