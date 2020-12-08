@@ -780,4 +780,44 @@ public class AlgorithmController {
         return Math.max(left, right) + 1;
     }
 
+
+    /**
+     * 二叉树的最小深度
+     * 左右子树都为空+1
+     */
+    public int minDepth(TreeNode root) {
+        if(root==null) return 0;
+
+        if(root.left==null && root.right==null) return 1;
+
+        int left = Integer.MAX_VALUE, right = Integer.MAX_VALUE;
+        if(root.left!=null) left = minDepth(root.left);
+        if(root.right!=null) right = minDepth(root.right);
+
+        return Math.min(left, right) + 1;
+    }
+    public int minDepth2(TreeNode root) {
+        if(root==null) return 0;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            count++;
+            int size = q.size();
+
+            while (size-->0) {
+                TreeNode node = q.poll();
+
+                if(node.left==null && node.right==null) return count;
+                if(node.left!=null) q.offer(node.left);
+                if(node.right!=null) q.offer(node.right);
+            }
+        }
+        return count;
+    }
+
+
 }
