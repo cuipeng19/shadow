@@ -820,4 +820,49 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 路径总和
+     * 到根节点和为sum，到子节点和为sum-val
+     */
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if(root==null) return false;
+
+        if(root.left==null && root.right==null) return sum==root.val;
+
+        return hasPathSum(root.left, sum-root.val) || hasPathSum(root.right, sum-root.val);
+    }
+    public boolean hasPathSum2(TreeNode root, int sum) {
+        if(root==null) return false;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        Queue<Integer> valQ = new LinkedList<>();
+        valQ.offer(root.val);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+
+            while (size-->0) {
+                TreeNode node = q.poll();
+                int val = valQ.poll();
+
+                if(node.left==null && node.right==null) {
+                    if(val==sum) return true;
+                    continue;
+                }
+
+                if(node.left!=null) {
+                    q.offer(node.left);
+                    valQ.offer(val+node.left.val);
+                }
+                if(node.right!=null) {
+                    q.offer(node.right);
+                    valQ.offer(val+node.right.val);
+                }
+            }
+        }
+
+        return false;
+    }
+
 }
