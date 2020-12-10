@@ -865,4 +865,29 @@ public class AlgorithmController {
         return false;
     }
 
+
+    /**
+     * 杨辉三角
+     * 每个数是左上方和右上方的和
+     */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> list = new ArrayList<>();
+        if(numRows==0) return list;
+
+        for (int i=0; i<numRows; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j=0; j<=i; j++) {
+                if(j==0 || j==i) {
+                    row.add(1);
+                } else {
+                    row.add(list.get(i-1).get(j-1) + list.get(i-1).get(j));
+                }
+            }
+            list.add(row);
+        }
+
+        return list;
+    }
+
+
 }
