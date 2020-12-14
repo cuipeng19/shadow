@@ -910,4 +910,38 @@ public class AlgorithmController {
 
         return null;
     }
+
+
+    /**
+     * 买卖股票的最佳时机
+     * 暴力
+     */
+    public int maxProfit(int[] prices) {
+        int maxProfit = 0;
+
+        for(int i=0; i<prices.length; i++) {
+            for(int j=i+1; j<prices.length; j++) {
+                int temp = prices[j]-prices[i];
+                if(temp>maxProfit) maxProfit = temp;
+            }
+        }
+        return maxProfit;
+    }
+    /**
+     * 买卖股票的最佳时机
+     * 双指针
+     */
+    public int maxProfit2(int[] prices) {
+        int min = Integer.MAX_VALUE, maxProfit = 0;
+
+        for(int i=0; i<prices.length; i++) {
+            if(prices[i]<min) min = prices[i];
+
+            int profit = prices[i] - min;
+            if(profit>maxProfit) maxProfit = profit;
+        }
+
+        return maxProfit;
+    }
+
 }
