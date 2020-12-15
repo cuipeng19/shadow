@@ -944,4 +944,21 @@ public class AlgorithmController {
         return maxProfit;
     }
 
+
+    /**
+     * 买卖股票的最佳时机2
+     * 收集所有上坡，利益最大
+     */
+    public int maxProfit3(int[] prices) {
+        int maxProfit = 0;
+
+        for(int i=1; i<prices.length; i++) {
+            int temp;
+            if((temp = prices[i]-prices[i-1]) > 0) {
+                maxProfit += temp;
+            }
+        }
+
+        return maxProfit;
+    }
 }
