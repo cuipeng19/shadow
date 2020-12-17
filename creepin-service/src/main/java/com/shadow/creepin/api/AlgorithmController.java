@@ -510,7 +510,7 @@ public class AlgorithmController {
      * 只出现一次的数字
      * HashMap统计
      * 3倍HashSet和-原数组和
-     * 位运算
+     * 位运算：a^0=a,  a^a=0
      */
     public int singleNumber(int[] nums) {
         int once = 0, twice = 0;
@@ -521,6 +521,21 @@ public class AlgorithmController {
         }
 
         return once;
+    }
+
+    /**
+     * 只出现一次的数字
+     * HashMap统计
+     * 2倍HashSet和-原数组和
+     * 位运算：a^0=a,  a^a=0
+     */
+    public int singleNumber2(int[] nums) {
+        int single = 0;
+        for(int num : nums) {
+            single = num ^ single;
+        }
+
+        return single;
     }
 
 
@@ -1004,4 +1019,7 @@ public class AlgorithmController {
 
         return true;
     }
+
+
+
 }
