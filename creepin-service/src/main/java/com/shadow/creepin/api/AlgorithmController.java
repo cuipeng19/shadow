@@ -1021,5 +1021,32 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 环形链表
+     * HashSet.add判断是否存在
+     */
+    public boolean hasCycle(ListNode head) {
+        Set<ListNode> set = new HashSet<>();
+        while (head!=null) {
+            if(!set.add(head)) return true;
+            head = head.next;
+        }
+        return false;
+    }
+    /**
+     * 环形链表
+     * 快慢指针，慢指针每次走一步，快指针每次走两步，成环会重合
+     */
+    public boolean hasCycle2(ListNode head) {
+        if(head==null || head.next==null) return false;
 
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow!=fast) {
+            if(fast==null || fast.next==null) return false;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
 }
