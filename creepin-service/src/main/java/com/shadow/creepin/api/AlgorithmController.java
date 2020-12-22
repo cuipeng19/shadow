@@ -1057,6 +1057,8 @@ public class AlgorithmController {
      * pop() —— 删除栈顶的元素。
      * top() —— 获取栈顶元素。
      * getMin() —— 检索栈中的最小元素。
+     *
+     * 辅助栈
      */
     class MinStack {
         Deque<Integer> stack;
@@ -1087,4 +1089,24 @@ public class AlgorithmController {
             return minStack.peek();
         }
     }
+
+
+    /**
+     * 相交链表
+     * 编写一个程序，找到两个单链表相交的起始节点。
+     *
+     * 双指针，空时指向另一链表头
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB==null) return null;
+        ListNode a = headA, b = headB;
+
+        while (a!=b) {
+            a = a==null ? headB : a.next;
+            b = b==null ? headA : b.next;
+        }
+
+        return a;
+    }
+
 }
