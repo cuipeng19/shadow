@@ -1109,4 +1109,37 @@ public class AlgorithmController {
         return a;
     }
 
+
+    /**
+     * 链表冒泡排序
+     */
+    public ListNode nodeBubbleSort(ListNode node) {
+        if(node==null || node.next==null) return node;
+
+        // 指针
+        ListNode i = node, j = node.next;
+
+        while (true) {
+
+            while (j!=null) {
+                // 升序
+                if(i.val > j.val) {
+                    int temp = i.val;
+                    i.val = j.val;
+                    j.val = temp;
+                }
+
+                j = j.next;
+            }
+
+            i = i.next;
+
+            // 结束
+            if(i==null) break;
+            j = i.next;
+        }
+
+        return node;
+    }
+
 }
