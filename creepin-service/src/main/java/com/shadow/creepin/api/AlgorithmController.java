@@ -1142,4 +1142,51 @@ public class AlgorithmController {
         return node;
     }
 
+    /**
+     * 链表插入排序
+     */
+    public ListNode insertionSortList(ListNode head) {
+        if(head==null || head.next==null) return head;
+
+        ListNode result = new ListNode(), index = head.next;
+
+        while (index!=null) {
+            ListNode temp = result.next;
+            while(temp!=null && temp.val<=index.val) {
+                temp = temp.next;
+            }
+
+            result.next = index;
+
+            index = index.next;
+        }
+
+
+        return result.next;
+    }
+
+
+    /**
+     * 从尾到头打印链表
+     * 栈
+     */
+    public int[] reversePrint(ListNode head) {
+        if(head==null) return new int[0];
+
+        Stack<ListNode> stack = new Stack<>();
+
+        while(head!=null) {
+            stack.push(head);
+            head = head.next;
+        }
+
+        int size = stack.size();
+        int[] nums = new int[size];
+        for(int i=0; i<size; i++) {
+            nums[i] = stack.pop().val;
+        }
+
+        return nums;
+    }
+
 }
