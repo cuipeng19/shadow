@@ -1167,6 +1167,62 @@ public class AlgorithmController {
 
 
     /**
+     * 反转链表
+     * 栈
+     */
+    public ListNode reverseList(ListNode head) {
+        if(head==null) return head;
+
+        Stack<ListNode> stack = new Stack<>();
+
+        while (head!=null) {
+            stack.push(head);
+            head = head.next;
+        }
+
+        ListNode result = new ListNode(), index = result;
+        while (!stack.empty()) {
+            index.next = stack.pop();
+            index = index.next;
+            index.next = null;
+        }
+
+        return result.next;
+    }
+    /**
+     * 反转链表
+     * 双指针
+     */
+    public ListNode reverseList2(ListNode head) {
+        ListNode current = head, curNext = null;
+
+        while (current!=null) {
+            ListNode temp = current.next;
+            current.next = curNext;
+            curNext = current;
+            current = temp;
+        }
+
+        return curNext;
+    }
+    /**
+     * 反转链表
+     * 递归
+     */
+    public ListNode reverseList3(ListNode head) {
+        if(head==null || head.next==null) return head;
+
+        ListNode index = head.next;
+        ListNode cur = reverseList3(index);
+
+        index.next = head;
+        head.next = null;
+
+        return cur;
+    }
+
+
+    /**
      * 从尾到头打印链表
      * 栈
      */
@@ -1188,5 +1244,6 @@ public class AlgorithmController {
 
         return nums;
     }
+
 
 }
