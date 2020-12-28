@@ -1144,26 +1144,59 @@ public class AlgorithmController {
 
     /**
      * 链表插入排序
+     * 尾节点为有序的最大值，待插入节点与尾节点比较
      */
     public ListNode insertionSortList(ListNode head) {
         if(head==null || head.next==null) return head;
 
-        ListNode result = new ListNode(), index = head.next;
+        ListNode result = new ListNode(Integer.MIN_VALUE), lastSorted=head, current = head.next;
+        result.next = head;
 
-        while (index!=null) {
-            ListNode temp = result.next;
-            while(temp!=null && temp.val<=index.val) {
-                temp = temp.next;
+        while (current!=null) {
+            if(lastSorted.val <= current.val) {
+                lastSorted = lastSorted.next;
+            } else {
+                ListNode prev = result;
+                while (prev.next.val<= current.val) {
+                    prev = prev.next;
+                }
+                lastSorted.next = current.next;
+                current.next = prev.next;
+                prev.next = current;
+
             }
 
-            result.next = index;
-
-            index = index.next;
+            current = lastSorted.next;
         }
-
 
         return result.next;
     }
+
+    /**
+     * 链表插入排序
+     * 每次从头寻找插入位置
+     */
+    public ListNode insertionSortList1(ListNode head) {
+        if(head==null || head.next==null) return head;
+
+        ListNode result = new ListNode(Integer.MIN_VALUE), current = head.next;
+        result.next = head;
+        result.next.next = null;
+
+        while (current!=null) {
+            ListNode prev = result, temp = result.next;
+            while (temp!=null && temp.val < current.val) {
+                prev = temp;
+                temp = temp.next;
+            }
+            prev.next = current;
+            current = current.next;
+            prev.next.next = temp;
+        }
+
+        return result.next;
+    }
+
 
 
     /**
