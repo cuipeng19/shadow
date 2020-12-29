@@ -12,7 +12,9 @@ public class AlgorithmController {
 
     /**
      * 两数之和
-     * 使用哈希表寻找target-x的时间复杂度为O(1)
+     * 暴力双指针
+     * 哈希表寻找target-x
+     * 时间复杂度为O(1)
      */
     public int[] twoSum(int[] nums, int target) {
         Map map = new HashMap<Integer, Integer>();
@@ -1279,4 +1281,46 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 两数之和  输入有序数组
+     * 二分查找，固定第一个数，在右侧寻找第二个数
+     * 时间复杂度：O(n logn)，空间复杂度O(1)
+     */
+    public int[] twoSum1(int[] numbers, int target) {
+        int length = numbers.length;
+        for(int i=0; i<length; i++) {
+            int left = i+1, right = length-1;
+            while (left<=right) {
+                int middle = (right-left)/2 + left, sum = numbers[i] + numbers[middle];
+                if(sum == target) {
+                    return new int[]{i+1, middle+1};
+                } else if(sum < target) {
+                    left = middle + 1;
+                } else {
+                    right = middle - 1;
+                }
+            }
+        }
+        return null;
+    }
+    /**
+     * 两数之和  输入有序数组
+     * 双指针，左0右n-1，sum<target左指针右移，sum>target右指针坐移
+     * 时间复杂度：O(n)，空间复杂度O(1)
+     */
+    public int[] twoSum2(int[] numbers, int target) {
+        int length = numbers.length, left = 0, right = length-1;
+
+        for(int i=0; i<length; i++) {
+            int sum = numbers[left] + numbers[right];
+            if(sum == target) {
+                return new int[]{left+1, right+1};
+            } else if(sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return null;
+    }
 }
