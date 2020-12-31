@@ -1336,4 +1336,47 @@ public class AlgorithmController {
         Arrays.sort(nums);
         return nums[nums.length/2];
     }
+
+
+    /**
+     * 排序数组
+     *
+     * 快速排序
+     * 分治思想，确定基准数，递归基准数的左右两部分
+     */
+    public int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length-1);
+        return nums;
+    }
+    private void quickSort(int[] nums, int l, int r) {
+        if(l<r) {
+            int p = partition(nums, l, r);
+
+            quickSort(nums, l, p-1);
+            quickSort(nums, p+1, r);
+        }
+    }
+    private int partition(int[] nums, int l, int r) {
+        int random = new Random().nextInt(r-l+1) + l;
+        swap(nums, l, random);
+
+        int pivot = nums[l];
+        int pivotIndex = l;
+        for(int i=l+1; i<=r; i++) {
+            if(nums[i] < pivot) {
+                pivotIndex++;
+                swap(nums, i, pivotIndex);
+            }
+        }
+        swap(nums, l, pivotIndex);
+
+        return pivotIndex;
+    }
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+
 }
