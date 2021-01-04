@@ -1165,7 +1165,6 @@ public class AlgorithmController {
                 lastSorted.next = current.next;
                 current.next = prev.next;
                 prev.next = current;
-
             }
 
             current = lastSorted.next;
