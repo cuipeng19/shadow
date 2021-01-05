@@ -1378,4 +1378,25 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 移除链表元素
+     * 删除链表中等于给定值 val 的所有节点。
+     */
+    public ListNode removeElements(ListNode head, int val) {
+        ListNode dummy = new ListNode(), current = head, prev = dummy;
+        dummy.next = head;
+
+        while (current!=null) {
+            if(current.val==val) {
+                prev.next = current.next;
+            } else {
+                prev = prev.next;
+            }
+
+            current = current.next;
+        }
+
+        return dummy.next;
+    }
+
 }
