@@ -1399,4 +1399,32 @@ public class AlgorithmController {
         return dummy.next;
     }
 
+
+    /**
+     * 存在重复元素
+     * 给定一个整数数组，判断是否存在重复元素。
+     * 排序，重复元素在相邻的位置
+     */
+    public boolean containsDuplicate(int[] nums) {
+        Arrays.sort(nums);
+
+        int length = nums.length;
+        for(int i=0; i<length-1; i++) {
+            if(nums[i] == nums[i+1]) return true;
+        }
+
+        return false;
+    }
+    /**
+     * hashSet
+     */
+    public boolean containsDuplicate1(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums) {
+            if(!set.add(num)) return true;
+        }
+
+        return false;
+    }
+
 }
