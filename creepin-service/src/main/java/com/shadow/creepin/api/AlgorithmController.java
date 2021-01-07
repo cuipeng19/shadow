@@ -1427,4 +1427,36 @@ public class AlgorithmController {
         return false;
     }
 
+
+    /**
+     * 存在重复元素 II
+     * 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的 绝对值 至多为 k。
+     *
+     * 双指针
+     */
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        int length = nums.length;
+
+        for(int i=0; i< length; i++) {
+            for(int j=i+1; j<length && j-i<=k; j++) {
+                if(nums[i]==nums[j]) return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * HashSet
+     */
+    public boolean containsNearbyDuplicate1(int[] nums, int k) {
+        int length = nums.length;
+        Set<Integer> set = new HashSet<>();
+
+        for(int i=0; i<length; i++) {
+            if(set.contains(nums[i])) return true;
+
+            set.add(nums[i]);
+            if(set.size()>k) set.remove(nums[i-k]);
+        }
+        return false;
+    }
 }
