@@ -12,6 +12,7 @@ Hoxton.SR6
 - [服务治理](#服务治理)
     - [服务注册](#服务注册)
     - [服务发现](#服务发现)
+- [负载均衡](#负载均衡)
 - config
 - openfeign
 - sleuth
@@ -64,6 +65,22 @@ Hoxton.SR6
 客户端的三种请求：注册、续约、下线
 
 服务端使用守护线程监听客户端状态
+
+
+## 负载均衡
+
+Ribbon是Netflix公司开发的组件，Spring Cloudt通过二次封装使得更加简单易用。
+
+Ribbon如何实现负载均衡：  
+Ribbon提供了拦截器LoadBalancerInterceptor，对标注@LoadBalanced注解的RestTemplate进行拦截，然后植入LoadBalancerClient的逻辑。
+
+负载均衡器：  
+进一步过滤服务实例清单中不可用、高负载的服务。
+
+负载均衡策略：  
+最终决定选择服务的方法。
+
+
 
 ## 服务网关
 
