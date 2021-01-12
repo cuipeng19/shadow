@@ -1463,10 +1463,7 @@ public class AlgorithmController {
 
     /**
      * 用队列实现栈
-     * push(x) -- 元素 x 入栈
-     * pop() -- 移除栈顶元素
-     * top() -- 获取栈顶元素
-     * empty() -- 返回栈是否为空
+     * 新元素入头部
      */
     class MyStack {
         Queue<Integer> queue;
@@ -1517,6 +1514,76 @@ public class AlgorithmController {
         root.right = left;
 
         return root;
+    }
+
+    /**
+     * 遍历
+     */
+    public TreeNode invertTree1(TreeNode root) {
+        if(root==null) return null;
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+
+            if(node.left!=null) q.offer(node.left);
+            if(node.right!=null) q.offer(node.right);
+
+            TreeNode temp = node.left;
+            node.left = node.right;
+            node.right = temp;
+        }
+
+        return root;
+    }
+
+
+    /**
+     * 用栈实现队列
+     * s1压入s2，s2为队列
+     */
+    class MyQueue {
+        Stack<Integer> s1;
+        Stack<Integer> s2;
+
+        /** Initialize your data structure here. */
+        public MyQueue() {
+            s1 = new Stack<>();
+            s2 = new Stack<>();
+        }
+
+        /** Push element x to the back of queue. */
+        public void push(int x) {
+            if(s1.isEmpty()) {
+                while (!s2.isEmpty()) {
+                    s1.push(s2.pop());
+                }
+            }
+            s1.push(x);
+        }
+
+        /** Removes the element from in front of queue and returns that element. */
+        public int pop() {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+            return s2.pop();
+        }
+
+        /** Get the front element. */
+        public int peek() {
+            while (!s1.isEmpty()) {
+                s2.push(s1.pop());
+            }
+            return s2.peek();
+        }
+
+        /** Returns whether the queue is empty. */
+        public boolean empty() {
+            return s1.isEmpty() && s2.isEmpty();
+        }
     }
 
 }
