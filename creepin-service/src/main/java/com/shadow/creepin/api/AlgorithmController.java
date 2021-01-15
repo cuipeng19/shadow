@@ -1594,4 +1594,23 @@ public class AlgorithmController {
         node.val = node.next.val;
         node.next = node.next.next;
     }
+
+
+    /**
+     * 反转字符串
+     * 双指针
+     */
+    public void reverseString(char[] s) {
+        int length = s.length, left = 0, right = length-1;
+
+        while (left<right) {
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+
+            left++;
+            right--;
+        }
+    }
+
 }
