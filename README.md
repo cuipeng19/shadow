@@ -75,10 +75,12 @@ Ribbon如何实现负载均衡：
 Ribbon提供了拦截器LoadBalancerInterceptor，对标注@LoadBalanced注解的RestTemplate进行拦截，然后植入LoadBalancerClient的逻辑。
 
 负载均衡器：  
-进一步过滤服务实例清单中不可用、高负载的服务。
+采用ILoadBalancer接口的chooseServer，进一步过滤服务实例清单中不可用、高负载的服务。  
+springboot默认ZoneAwareLoadBalancer,过滤掉最高负载20%、故障率大于99.999%的服务。
 
 负载均衡策略：  
-最终决定选择服务的方法。
+采用IRule接口的choose，决定选择服务的方法。  
+常用策略：RoundRobinRule、retryRule、WeightedResponseTimeRule、ZoneAvoidanceRule
 
 
 
