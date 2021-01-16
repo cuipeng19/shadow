@@ -82,6 +82,19 @@ springboot默认ZoneAwareLoadBalancer,过滤掉最高负载20%、故障率大于
 采用IRule接口的choose，决定选择服务的方法。  
 常用策略：RoundRobinRule、retryRule、WeightedResponseTimeRule、ZoneAvoidanceRule
 
+维护服务实例清单：  
+ILoadBalancer接口定义维护实例的方法，实现在BaseLoadBalancer。  
+服务实例清单分为：所有服务实例清单AllServerList，可用服务实例清单UpServerList。  
+
+获取服务实例清单：  
+采用ServerList接口从Eureka服务器拉取。  
+默认实现DisCoveryEnabledNIWSServerList
+
+更新服务实例清单：  
+通过ServerListUpdater接口更新。  
+默认实现PollingServerListUpdater，其中的start方法创建线程更新。  
+
+服务实例心跳监测：  
 
 
 ## 服务网关
