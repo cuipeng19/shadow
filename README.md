@@ -87,14 +87,23 @@ ILoadBalancer接口定义维护实例的方法，实现在BaseLoadBalancer。
 服务实例清单分为：所有服务实例清单AllServerList，可用服务实例清单UpServerList。  
 
 获取服务实例清单：  
-采用ServerList接口从Eureka服务器拉取。  
+从Eureka服务器拉取服务实例清单，采用ServerList接口。  
 默认实现DisCoveryEnabledNIWSServerList
 
 更新服务实例清单：  
-通过ServerListUpdater接口更新。  
-默认实现PollingServerListUpdater，其中的start方法创建线程更新。  
+服务实例清单处于一个不断变化的过程，维护这个清单，提供ServerListUpdater接口更新。  
+默认实现PollingServerListUpdater，其中的start方法创建线程定时更新。  
 
 服务实例心跳监测：  
+通过心跳判断实例是否可用，在BaseLoadBalancer的内部类Pinger的runPinger方法，使用IPingStrategy的pingServers方法
+来监测服务实例，返回监测结果，状态改变则发送给监听者，修改服务实例状态。
+
+IPing接口：  
+具体执行心跳监测服务实例的是IPing接口，若配置Eureka客户端，则实现为NIWSDiscoveryPing。
+
+
+## 断路器
+
 
 
 ## 服务网关
