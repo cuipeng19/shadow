@@ -1613,4 +1613,37 @@ public class AlgorithmController {
         }
     }
 
+
+    /**
+     * 两个数组的交集
+     * 给定两个数组，编写一个函数来计算它们的交集。
+     * 两个Set
+     */
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1==null || nums2==null) return null;
+
+        int l1 = nums1.length, l2 = nums2.length;
+
+        Set<Integer> s1 = new HashSet<>(), s2 = new HashSet<>();
+
+        for(int num : l1 > l2 ? nums1 : nums2) {
+            s2.add(num);
+        }
+
+        for(int num : l1 < l2 ? nums1 : nums2) {
+            if(s2.contains(num)) {
+                s1.add(num);
+            }
+        }
+
+        int[] intersection = new int[s1.size()];
+        int index = 0;
+        for(int num : s1) {
+            intersection[index] = num;
+            index++;
+        }
+
+        return intersection;
+    }
+
 }
