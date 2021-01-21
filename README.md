@@ -111,6 +111,18 @@ IPing接口：
 
 底层的实现是RXJava，是流形式的，采用观察者模式(Observer)实现。
 
+### 工作原理
+
+HystrixCommand是同步请求命令，HystrixObservableCommand是异步请求命令。
+
+Hystrix命令：execute()、queue()、observe()、toObservable()
+
+断路器需要实现HystrixCircuitBreaker接口，断路器状态：closed-open-half_open
+
+判定是否打开段利器的算法：时间窗统计法，将时间窗再细分为桶。
+
+隔离采用舱壁模式。
+
 ## 服务网关
 
 统一进行鉴权、限流、验签等。对外统一提供服务，屏蔽内部独立服务的访问。子服务的添加和移除对外无感知，增加系统扩展性。
