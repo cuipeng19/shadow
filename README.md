@@ -70,7 +70,7 @@ Hoxton.SR6
 
 ## 负载均衡
 
-Ribbon是Netflix公司开发的组件，Spring Cloudt通过二次封装使得更加简单易用。
+Ribbon是Netflix公司开发的组件，Spring Cloud通过二次封装使得更加简单易用。
 
 Ribbon如何实现负载均衡：  
 Ribbon提供了拦截器LoadBalancerInterceptor，对标注@LoadBalanced注解的RestTemplate进行拦截，然后植入LoadBalancerClient的逻辑。
@@ -113,15 +113,22 @@ IPing接口：
 
 ### 工作原理
 
-HystrixCommand是同步请求命令，HystrixObservableCommand是异步请求命令。
+将请求包装成HystrixCommand(同步请求命令)，HystrixObservableCommand(异步请求命令)。
 
 Hystrix命令：execute()、queue()、observe()、toObservable()
+
+observableExecutionMode：
+eager(启用HystrixObservableCommand.observe方法，热观察者模式，表示立即执行)、
+lazy(启用HystrixObservableCommand.toObservable方法，冷观察者模式，表示延迟执行)
 
 断路器需要实现HystrixCircuitBreaker接口，断路器状态：closed-open-half_open
 
 判定是否打开段利器的算法：时间窗统计法，将时间窗再细分为桶。
 
 隔离采用舱壁模式。
+
+Hystrix的缓存是基于本次请求。
+
 
 ## 服务网关
 
