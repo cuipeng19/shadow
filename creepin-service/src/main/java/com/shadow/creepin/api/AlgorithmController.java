@@ -1624,6 +1624,7 @@ public class AlgorithmController {
 
         int l1 = nums1.length, l2 = nums2.length;
 
+        // s1存交集
         Set<Integer> s1 = new HashSet<>(), s2 = new HashSet<>();
 
         for(int num : l1 > l2 ? nums1 : nums2) {
@@ -1644,6 +1645,69 @@ public class AlgorithmController {
         }
 
         return intersection;
+    }
+
+    /**
+     * 两个数组的交集2  统计次数
+     * hashMap存较小数组的元素次数，遍历重复的元素次数-1
+     */
+    public int[] intersect(int[] nums1, int[] nums2) {
+        if(nums1==null || nums2==null) return null;
+
+        int l1 = nums1.length, l2 = nums2.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int num : l1 <= l2 ? nums1 : nums2) {
+            int count = map.getOrDefault(num, 0);
+            map.put(num, count+1);
+        }
+
+        int[] intersect = new int[Math.min(l1, l2)];
+        int index = 0;
+        for(int num : l1 > l2 ? nums1 : nums2) {
+            int count = map.getOrDefault(num, 0);
+
+            if(count>0) {
+                intersect[index++] = num;
+                count--;
+
+                if(count>0) {
+                    map.put(num, count);
+                } else {
+                    map.remove(num);
+                }
+            }
+        }
+
+        return Arrays.copyOfRange(intersect, 0, index);
+    }
+
+    /**
+     * 两个数组的交集2  统计次数
+     * 排序  双指针
+     */
+    public int[] intersect2(int[] nums1, int[] nums2) {
+        if(nums1==null || nums2==null) return null;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        int i1 = 0, i2 = 0, l1 = nums1.length, l2 = nums2.length;
+        int[] intersect = new int[Math.min(l1, l2)];
+        int index = 0;
+
+        while (i1<l1 && i2<l2) {
+            if(nums1[i1]==nums2[i2]) {
+                intersect[index++] = nums1[i1];
+                i1++;
+                i2++;
+            } else if(nums1[i1] < nums2[i2]) {
+                i1++;
+            } else {
+                i2++;
+            }
+        }
+
+        return Arrays.copyOfRange(intersect, 0, index);
     }
 
 }
