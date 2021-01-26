@@ -1710,4 +1710,39 @@ public class AlgorithmController {
         return Arrays.copyOfRange(intersect, 0, index);
     }
 
+
+    /**
+     * 字符串中的第一个唯一字符
+     * 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。你可以假定该字符串只包含小写字母。
+     * hashMap统计次数
+     */
+    public int firstUniqChar(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        int length = s.length();
+
+        for(int i=0; i<length; i++) {
+            int count = map.getOrDefault(s.charAt(i), 0);
+            map.put(s.charAt(i), count+1);
+        }
+
+        for(int i=0; i<length; i++) {
+            if(map.get(s.charAt(i))==1) return i;
+        }
+
+        return -1;
+    }
+    /**
+     * 数组统计次数
+     */
+    public int firstUniqChar1(String s) {
+        int[] array = new int[26];
+        int length = s.length();
+
+        for(int i=0; i<length; i++) {
+            array[s.charAt(i) - 'a']++;
+        }
+
+    }
+
+
 }
