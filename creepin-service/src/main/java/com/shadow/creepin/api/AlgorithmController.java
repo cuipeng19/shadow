@@ -1764,4 +1764,26 @@ public class AlgorithmController {
         return node;
     }
 
+
+    /**
+     * 二分查找
+     * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+     * 时间复杂度：O(logN)
+     * 空间复杂度：O(1)
+     */
+    public int search(int[] nums, int target) {
+        if(nums==null) return -1;
+
+        int length = nums.length, left = 0, right = length-1, pivot;
+
+        while(left<=right) {
+            pivot = (right-left)/2 + left;
+            if(nums[pivot]==target) return pivot;
+            if(nums[pivot]<target) left = pivot+1;
+            if(nums[pivot]>target) right = pivot-1;
+        }
+
+        return -1;
+    }
+
 }
