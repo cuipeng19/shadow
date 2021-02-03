@@ -29,7 +29,7 @@ public class RedisLockAspect {
     private StringRedisTemplate stringRedisTemplate;
 
 
-    @Around("@annotation(com.shadow.tool.common.redis.annotation.RedisLock)")
+    @Around("@annotation(com.shadow.common.redis.annotation.RedisLock)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         // 锁状态
         boolean locked = false;
@@ -56,9 +56,7 @@ public class RedisLockAspect {
                 if(StringUtils.isEmpty(paramValue)) continue;
 
                 // 加锁
-                if (locked = stringRedisTemplate.opsForValue().setIfAbsent((lockName = lockName+paramValue), "lock")) {
-                    stringRedisTemplate.expire(lockName, 1L, TimeUnit.MINUTES);
-                }
+                locked = stringRedisTemplate.opsForValue().setIfAbsent((lockName = lockName+paramValue), "lock", 1, TimeUnit.MINUTES);
 
                 if(!locked) {
                     log.error("{}.{}请求重复,lockName={}", joinPoint.getTarget().getClass().getName(), joinPoint.getSignature().getName(), lockName);
@@ -67,11 +65,14 @@ public class RedisLockAspect {
             }
         }
 
-        Object o = joinPoint.proceed();
-
-        // 解锁
-        if(locked) {
-            stringRedisTemplate.delete(lockName);
+        Object o;
+        try {
+            o = joinPoint.proceed();
+        } finally {
+            // 解锁
+            if(locked) {
+                stringRedisTemplate.delete(lockName);
+            }
         }
 
         return o;

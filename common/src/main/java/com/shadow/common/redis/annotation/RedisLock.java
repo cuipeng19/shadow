@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * redis锁
  * 用于接口幂等
- * 适用：弱网、并发请求(有极小概率bug，需升级2.1以上)
+ * 适用：弱网、并发请求
  * @author cuipeng 2021/1/30 23:54
  */
 @Target(ElementType.METHOD)
