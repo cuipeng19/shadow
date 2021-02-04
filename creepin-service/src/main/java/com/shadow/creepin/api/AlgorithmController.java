@@ -1767,7 +1767,7 @@ public class AlgorithmController {
 
     /**
      * 二分查找
-     * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
+     * 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
      * 时间复杂度：O(logN)
      * 空间复杂度：O(1)
      */
@@ -1786,4 +1786,64 @@ public class AlgorithmController {
         return -1;
     }
 
+
+    class Bucket {
+        private LinkedList<Integer> list;
+
+        public Bucket() {
+            list = new LinkedList<>();
+        }
+
+        public void insert(Integer key) {
+            if(list.indexOf(key) == -1) list.addLast(key);
+        }
+
+        public void delete(Integer key) {
+            list.remove(key);
+        }
+
+        public boolean exists(Integer key) {
+            return list.indexOf(key) != -1;
+        }
+    }
+
+    /**
+     * 不使用任何内建的哈希表库设计一个哈希集合（HashSet）。
+     *
+     * 实现 MyHashSet 类：
+     * void add(key) 向哈希集合中插入值 key 。
+     * bool contains(key) 返回哈希集合中是否存在这个值 key 。
+     * void remove(key) 将给定值 key 从哈希集合中删除。如果哈希集合中没有这个值，什么也不做。
+     */
+    class MyHashSet {
+        private Bucket[] bucketArray;
+        private int length;
+
+        public MyHashSet() {
+            length = 769;
+            bucketArray = new Bucket[length];
+            for(int i=0; i<769; i++) {
+                bucketArray[i] = new Bucket();
+            }
+        }
+
+        private int hash(int key) {
+            return key % length;
+        }
+
+        public void add(int key) {
+            int index = hash(key);
+            bucketArray[index].insert(key);
+        }
+
+        public void remove(int key) {
+            int index = hash(key);
+            bucketArray[index].delete(key);
+        }
+
+        public boolean contains(int key) {
+            int index = hash(key);
+            return bucketArray[index].exists(key);
+        }
+    }
 }
