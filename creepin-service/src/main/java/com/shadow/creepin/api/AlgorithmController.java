@@ -1846,4 +1846,29 @@ public class AlgorithmController {
             return bucketArray[index].exists(key);
         }
     }
+
+
+    /**
+     * 二叉搜索树中的搜索
+     * 给定二叉搜索树（BST）的根节点和一个值。 你需要在BST中找到节点值等于给定值的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 NULL。
+     *
+     * 递归
+     */
+    public TreeNode searchBST(TreeNode root, int val) {
+        if(root==null || root.val==val) return root;
+
+        return val>root.val ? searchBST(root.right, val) : searchBST(root.left, val);
+    }
+    /**
+     * 迭代
+     */
+    public TreeNode searchBST1(TreeNode root, int val) {
+        while (root!=null && root.val!=val) {
+            root = val>root.val ? root.right : root.left;
+        }
+
+        return root;
+    }
+
+
 }
