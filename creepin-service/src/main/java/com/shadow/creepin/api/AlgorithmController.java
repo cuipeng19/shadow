@@ -1871,4 +1871,34 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 二叉搜索树中的插入操作
+     * 给定二叉搜索树（BST）的根节点和要插入树中的值，将值插入二叉搜索树。 返回插入后二叉搜索树的根节点。 输入数据 保证 ，新值和原始二叉搜索树中的任意节点值都不同。
+     *
+     */
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if(root==null) return new TreeNode(val);
+
+        TreeNode index = root;
+        while (index!=null) {
+            if(val<index.val) {
+                if(index.left==null) {
+                    index.left = new TreeNode(val);
+                    break;
+                } else {
+                    index = index.left;
+                }
+            } else {
+                if(index.right==null) {
+                    index.right = new TreeNode(val);
+                    break;
+                } else {
+                    index = index.right;
+                }
+            }
+        }
+
+        return root;
+    }
+
 }
