@@ -1901,4 +1901,48 @@ public class AlgorithmController {
         return root;
     }
 
+
+    /**
+     * 删除二叉搜索树中的节点
+     * 给定一个二叉搜索树的根节点 root 和一个值 key，删除二叉搜索树中的 key 对应的节点，并保证二叉搜索树的性质不变。返回二叉搜索树（有可能被更新）的根节点的引用。
+     *
+     */
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root==null) return null;
+
+        if(key<root.val) {
+            root.left = deleteNode(root.left, key);
+        }
+        if(key>root.val) {
+            root.right = deleteNode(root.right, key);
+        }
+        if(key==root.val) {
+            if(root.left==null && root.right==null) {
+                root=null;
+            } else if(root.left!=null) {
+                root.val = previousNode(root);
+                root.left = deleteNode(root.left, root.val);
+            } else {
+                root.val = behindNode(root);
+                root.right = deleteNode(root.right, root.val);
+            }
+        }
+
+        return root;
+    }
+    private int previousNode(TreeNode node) {
+        node = node.left;
+        while (node.right!=null) {
+            node = node.right;
+        }
+        return node.val;
+    }
+    private int behindNode(TreeNode node) {
+        node = node.right;
+        while (node.left!=null) {
+            node = node.left;
+        }
+        return node.val;
+    }
+
 }
