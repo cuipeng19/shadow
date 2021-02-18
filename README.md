@@ -138,6 +138,14 @@ Hystrix的缓存是基于本次请求，可以通过缩小缓存超时时间来�
 作用域：全局、单次请求  
 注解：@HystrixCollapser
 
+线程池划分：  
+如果按照组别建分配线程池，就会有很多的请求都被放到同一个线程池内的情况。  
+组别建(groupKey)、线程池键(threadPoolKey)从而实现舱壁模式。
+
+### 仪表盘
+
+hystrix-dashboard：单体监控、Turbine聚合监控
+
 
 ## 服务网关
 
