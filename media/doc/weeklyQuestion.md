@@ -58,4 +58,4 @@ ArrayList.contains(Object o)，二叉树的最小深度，路径总和，杨辉�
 
 2021.2.15 ~ 2021.2.19
 
-LinkedList.indexOf(Object o)
+LinkedList.indexOf(Object o)，SOLID原则
