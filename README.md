@@ -14,6 +14,7 @@ Hoxton.SR6
     - [服务发现](#服务发现)
 - [负载均衡](#负载均衡)
 - [断路器](#断路器)
+- [新断路器](#新断路器Resilience4j)
 - config
 - openfeign
 - sleuth
@@ -124,7 +125,7 @@ lazy(启用HystrixObservableCommand.toObservable方法，冷观察者模式，�
 
 断路器需要实现HystrixCircuitBreaker接口，断路器状态：closed-open-half_open
 
-判定是否打开段利器的算法：时间窗统计法，将时间窗再细分为桶。
+判定是否打开断路器的算法：时间窗统计法，将时间窗再细分为桶。
 
 隔离采用舱壁模式，将服务调用隔离到了各自的线程池内。
 
@@ -146,6 +147,16 @@ Hystrix的缓存是基于本次请求，可以通过缩小缓存超时时间来�
 ### 仪表盘
 
 hystrix-dashboard：单体监控、Turbine聚合监控
+
+
+## 新断路器Resilience4j
+
+### 与Hystrix的不同点
+
+* Hystrix将调用封装为Hystrix命令，Resilience4j使用函数式编程和Lambda表达式。
+* Hystrix将结果存储在时间窗桶，Resilience4j使用环形位缓冲区。
+* Hystrix打开5秒后，修改为伴打开状态，自后只通过一次请求就能关闭断路器，Resilience4j使用阈值来确定断路器的状态。
+
 
 
 ## 服务网关
