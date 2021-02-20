@@ -8,7 +8,7 @@
     - [Ribbon](media/doc/Ribbon.md)
 - [断路器](#断路器)
     - [Hystrix](media/doc/Hystrix.md)
-    - [Resilience](media/doc/Resilience4j.md)
+    - [Resilience4j](media/doc/Resilience4j.md)
 - config
 - openfeign
 - sleuth
@@ -59,7 +59,7 @@
 使微服务系统在糟糕的情况下，仍然保证可用性。提供熔断、服务降级等功能。
 
 * [Hystrix](media/doc/Hystrix.md)
-* [Resilience](media/doc/Resilience4j.md)
+* [Resilience4j](media/doc/Resilience4j.md)
 
 
 
