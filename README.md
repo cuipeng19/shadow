@@ -10,7 +10,8 @@
     - [Hystrix](media/doc/Hystrix.md)
     - [Resilience4j](media/doc/Resilience4j.md)
 - config
-- openfeign
+- [服务调用](#服务调用)
+    - [OpenFeign](media/doc/OpenFeign.md)
 - sleuth
 - [服务网关](#服务网关)
     - [Zuul](media/doc/Zuul.md)
@@ -60,6 +61,14 @@
 
 * [Hystrix](media/doc/Hystrix.md)
 * [Resilience4j](media/doc/Resilience4j.md)
+
+
+
+## 服务调用
+
+在Rest请求方式的基础上，提供接口声明方式的调用。
+
+* [OpenFeign](media/doc/OpenFeign.md)
 
 
 
