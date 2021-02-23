@@ -12,7 +12,7 @@
 - config
 - [服务调用](#服务调用)
     - [OpenFeign](media/doc/OpenFeign.md)
-- sleuth
+- [链路跟踪](#链路跟踪)
 - [服务网关](#服务网关)
     - [Zuul](media/doc/Zuul.md)
     - [Gateway](media/doc/Gateway.md)
@@ -70,6 +70,13 @@
 
 * [OpenFeign](media/doc/OpenFeign.md)
 
+
+
+## 链路跟踪
+
+链路监控组件，使请求能欧追踪到各个服务实例中，在发生异常时可以快速准确地定位。
+
+* [Sleuth](media/doc/Sleuth.md)
 
 
 ## 服务网关
