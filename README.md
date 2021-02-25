@@ -26,6 +26,7 @@
 - [设计理论及原则](#设计理论及原则)
     - [CAP&Base](media/doc/CAP&BASE.md)
     - [SOLID原则](media/doc/SOLID原则.md)
+- [基础](media/doc/basic.md)
 
 
 
