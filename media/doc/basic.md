@@ -10,6 +10,10 @@
 - [三次握手与四次挥手](#三次握手与四次挥手)
     - [建立连接三次握手](#建立连接三次握手)
     - [关闭连接四次挥手](#关闭连接四次挥手)
+- [URL到主页过程](#URL到主页过程)
+- [转发与重定向](#转发与重定向)
+- [Thread的sleep与wait](#Thread的sleep与wait)
+- [equals与hashCode](#Equals与hashCode)
 
 
 ## 事务
@@ -70,3 +74,28 @@ methodA事务方法调用methodB事务方法，methodB的事务传播行为决�
 服务端-收到客户端的关闭请求，未关闭(数据未传输完毕)  
 服务端-发送ACK确认关闭  
 客户端-确认收到ACK
+
+
+## URL到主页过程
+
+DNS域名解析成IP地址，建立TCP连接，使用ARP地址解析协议，将IP地址转换为MAC地址，使用HTTP访问页面。
+
+
+## 转发与重定向
+
+* forward：服务器行为，显示原URL，共享request数据，效率高
+* redirect：客户端行为，显示新URL，不共享request数据，效率低
+
+
+## Thread的sleep与wait
+
+都可以暂停线程的执行。
+
+* sleep：不释放锁，执行完后自动被唤醒，通常用于线程的暂停
+* wait：释放锁，唤醒需要别的线程调用同以对象的notify/notifyAll，通常用于线程间的通信
+
+
+## Equals与hashCode
+
+* ==：基本数据类型比较的是值，引用数据类型比较的是内存地址
+* equals：没有重写equals，等价于==；重写了equals，比较对象的内容相等
