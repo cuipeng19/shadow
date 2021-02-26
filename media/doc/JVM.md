@@ -138,8 +138,9 @@ Java的自动内存管理是针对对象内存的分配和回收，主要针对�
 进一步划分堆是更好的回收、分配内存。
 ![堆空间的基本结构](../picture/jvm/堆空间的基本结构.png)  
 对象在Eden分配，新生代垃圾回收后，存活的对象进入Survivor，并且年龄加1，当年龄达到一定程度（默认15）晋升老年代。  
-堆内存分配策略：有限在Eden分配，大对象直接进入老年代，长期存活的对象将进入老年代。  
+堆内存分配策略：优先在Eden分配，大对象直接进入老年代，长期存活的对象将进入老年代。  
 -XX:PrintGCDetails打印GC信息
+
 * Partial GC  
 young GC：只进行young gen的GC，eden分配满的时候触发  
 Old GC：只进行old gen的GC，只有CMS的concurrent collection是这个模式  

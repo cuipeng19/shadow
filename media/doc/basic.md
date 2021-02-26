@@ -10,6 +10,10 @@
 - [三次握手与四次挥手](#三次握手与四次挥手)
     - [建立连接三次握手](#建立连接三次握手)
     - [关闭连接四次挥手](#关闭连接四次挥手)
+- [URL到主页过程](#URL到主页过程)
+- [转发与重定向](#转发与重定向)
+- [Thread的sleep与wait](#Thread的sleep与wait)
+- [equals与hashCode](#Equals与hashCode)
 
 
 ## 事务
@@ -69,4 +73,42 @@ methodA事务方法调用methodB事务方法，methodB的事务传播行为决�
 客户端-发送关闭请求  
 服务端-收到客户端的关闭请求，未关闭(数据未传输完毕)  
 服务端-发送ACK确认关闭  
-客户端-确认收到ACK
+客户端-确认收到ACK  
+
+2MSL:保证双工链接可靠关闭，保证重复数据段从网络中消失
+
+
+## URL到主页过程
+
+使用HTTP访问页面，DNS域名解析成IP地址，建立TCP连接，使用ARP地址解析协议，将IP地址转换为MAC地址。
+
+
+## 转发与重定向
+
+* forward：服务器行为，显示原URL，共享request数据，效率高
+* redirect：客户端行为，显示新URL，不共享request数据，效率低
+
+
+## Thread的sleep与wait
+
+都可以暂停线程的执行。
+
+* sleep：不释放锁，执行完后自动被唤醒，通常用于线程的暂停
+* wait：释放锁，唤醒需要别的线程调用同以对象的notify/notifyAll，通常用于线程间的通信
+
+
+## Equals与hashCode
+
+### equals
+
+* ==：基本数据类型比较的是值，引用数据类型比较的是内存地址
+* equals：没有重写equals，等价于==；重写了equals，比较对象的内容相等
+
+String类和字符数组都被final修饰，String的引用可变，反射可改变数据值。
+
+### hashCode
+
+hashCode作用是获取hash码，hash码用来确定对象在hash表中的索引位置。  
+Object的hashCode是本地方法，将对象的内存地址转换为整数返回。
+
+重写equals要重写hashCode：相等的对象必须具有相同的hash码
