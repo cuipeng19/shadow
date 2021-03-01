@@ -108,7 +108,7 @@ String类和字符数组都被final修饰，String的引用可变，反射可改
 
 ### hashCode
 
-hashCode作用是获取hash码，hash码用来确定对象在hash表中的索引位置。  
+hashCode作用是获取hash码，hash码用来确定对象在hash表中的索引位置，减少equals的次数。  
 Object的hashCode是本地方法，将对象的内存地址转换为整数返回。
 
 重写equals要重写hashCode：相等的对象必须具有相同的hash码

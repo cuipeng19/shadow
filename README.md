@@ -27,6 +27,7 @@
     - [CAP&Base](media/doc/CAP&BASE.md)
     - [SOLID原则](media/doc/SOLID原则.md)
 - [基础](media/doc/basic.md)
+- [高并发程序设计](media/doc/highConcurrency.md)
 
 
 
