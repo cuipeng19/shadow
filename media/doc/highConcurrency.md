@@ -25,6 +25,11 @@
     - [线程安全与synchronized](#线程安全与synchronized)
 - [JKD并发包](#JKD并发包)
     - [同步控制](#同步控制)
+        - [重入锁ReentrantLock](#重入锁ReentrantLock)
+        - [信号量Semaphore](#信号量Semaphore)
+        - [读写锁ReadWriteLock](#读写锁ReadWriteLock)
+        - [倒计时器CountDownLatch](#倒计时器CountDownLatch)
+        - [阻塞工具LockSupport](#阻塞工具LockSupport)
 
 
 ## Java并行程序基础
@@ -138,4 +143,53 @@ synchronized实现线程间的同步，对同步的代码加锁，使得每次�
 
 ### 同步控制
 
- 
+决定一个线程是否可以访问临界区资源。
+
+#### 重入锁ReentrantLock
+
+显示的操作过程，局限于一个线程可以反复进入临界区。底层实现：
+* 原子状态：CAS操作存储当前锁的状态，判断锁是否被别的线程持有
+* 等待队列：没有请求到锁的线程进入等待队列，有线程释放锁后，从等待队列唤醒一个线程
+* park/unpark：用来挂起和恢复线程
+
+#### 条件Condition
+
+重入锁的好搭档
+* await：使线程等待，释放锁
+* signal：唤醒线程
+
+#### 信号量Semaphore
+
+信号量是对锁的扩展，锁每次只允许一个线程访问一个资源，信号量可以指定多个线程同时访问一个资源。
+* acquire：尝试获得准入许可，若无法获得，线程会等待
+* release：释放许可
+
+#### 读写锁ReadWriteLock
+
+读写分离减少锁竞争，读读非阻塞，读写阻塞。
+
+#### 倒计时器CountDownLatch
+
+* await：要求主线程等待所有任务全部完成
+* countDown：完成任务，计时器-1
+
+#### 阻塞工具LockSupport
+
+* park：静态方法，阻塞当前线程，释放资源
+* unpark：静态方法，唤醒线程
+
+
+### 线程池
+
+对线程复用，避免频繁创建和销毁线程。
+
+#### 内部实现
+
+ThreadPoolExecutor
+* corePoolSize：核心线程数量
+* maximumPoolSize：最大线程数量
+* keepAliveTime：超过核心线程数量的空闲线程的存活时间
+* unit：时间单位
+* workQueue：任务队列
+* threadFactory：线程工厂
+* handler：拒绝策略
