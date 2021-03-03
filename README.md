@@ -28,7 +28,7 @@
     - [SOLID原则](media/doc/SOLID原则.md)
 - [基础](media/doc/basic.md)
 - [高并发程序设计](media/doc/highConcurrency.md)
-
+- [Redis](media/doc/Redis.md)
 
 
 ## 每周一问
