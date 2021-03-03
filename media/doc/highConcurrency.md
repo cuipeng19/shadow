@@ -190,6 +190,20 @@ ThreadPoolExecutor
 * maximumPoolSize：最大线程数量
 * keepAliveTime：超过核心线程数量的空闲线程的存活时间
 * unit：时间单位
-* workQueue：任务队列
+* workQueue：任务队列，被提交但尚未执行的任务
 * threadFactory：线程工厂
 * handler：拒绝策略
+
+#### 任务队列
+
+* SynchronousQueue：直接提交的队列，没有容量，直接将任务提交给线程执行，没有核心线程则创建新线程
+* ArrayBlockingQueue：有界队列，没有核心线程则进入队列，队列满则创建新线程
+* LinkedBlockingQueue：无界队列，没有核心线程则进入队列
+* PriorityBlockingQueue：优先任务队列，无界，根据任务优先级执行
+
+#### 拒绝策略
+
+* AbortPolicy：直接抛出异常
+* CallerRunsPolicy：交给调用主线程执行
+* DisCardOldestPolicy：丢弃最老的一个请求
+* DisCardPolicy：丢弃无法处理的任务
