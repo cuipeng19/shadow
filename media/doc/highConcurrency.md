@@ -30,6 +30,10 @@
         - [读写锁ReadWriteLock](#读写锁ReadWriteLock)
         - [倒计时器CountDownLatch](#倒计时器CountDownLatch)
         - [阻塞工具LockSupport](#阻塞工具LockSupport)
+    - [线程池](#线程池)
+        - [内部实现](#内部实现)
+        - [任务队列](#任务队列)
+        - [拒绝策略](#拒绝策略)
 
 
 ## Java并行程序基础
@@ -206,4 +210,24 @@ ThreadPoolExecutor
 * AbortPolicy：直接抛出异常
 * CallerRunsPolicy：交给调用主线程执行
 * DisCardOldestPolicy：丢弃最老的一个请求
-* DisCardPolicy：丢弃无法处理的任务
+* DisCardPolicy：丢弃无法处理的任务1
+
+
+## 锁
+
+### 锁优化
+
+* 减小锁粒度
+* 读写分离
+
+### 无锁
+
+锁是悲观策略，假设了每一次的临界区操作会产生冲突。无锁是乐观操作，假设了对资源的访问没有冲突。
+
+#### 比较交换CAS
+
+compareAndSet，旧值和预期值相等，把新值更新到旧值，否则什么都不做。存在ABA问题。
+
+#### 无锁的线程安全整数AtomicInteger
+
+使用CAS修改
