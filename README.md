@@ -29,6 +29,7 @@
 - [基础](media/doc/basic.md)
 - [高并发程序设计](media/doc/highConcurrency.md)
 - [Redis](media/doc/Redis.md)
+- [RabbitMQ](media/doc/RabbitMQ.md)
 
 
 ## 每周一问

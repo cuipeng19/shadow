@@ -69,4 +69,9 @@ LinkedList.indexOf(Object o)，SOLID原则
 
 2021.3.1 ~ 2021.3.5
 
-SpringMVC原理，Redis过期时间/持久化，缓存穿透，缓存雪崩，并发竞争key
+SpringMVC原理，Redis过期时间/持久化，缓存穿透，缓存雪崩，并发竞争key，双写一致性
+
+
+2021.3.8 ~ 2021.3.12
+
+消息队列
