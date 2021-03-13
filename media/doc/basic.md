@@ -18,6 +18,7 @@
 - [转发与重定向](#转发与重定向)
 - [Thread的sleep与wait](#Thread的sleep与wait)
 - [equals与hashCode](#Equals与hashCode)
+- [AOP](#AOP)
 
 
 ## 事务
@@ -145,3 +146,11 @@ hashCode作用是获取hash码，hash码用来确定对象在hash表中的索引
 Object的hashCode是本地方法，将对象的内存地址转换为整数返回。
 
 重写equals要重写hashCode：相等的对象必须具有相同的hash码
+
+
+## AOP
+
+动态代理实现
+
+* JDK：对接口代理，通过反射调用被拦截方法
+* CGLIB：对类代理，采用FastClass机制，对一个类的方法建立索引，通过索引直接调用相应方法
