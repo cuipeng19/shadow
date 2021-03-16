@@ -30,6 +30,7 @@
 - [高并发程序设计](media/doc/highConcurrency.md)
 - [Redis](media/doc/Redis.md)
 - [RabbitMQ](media/doc/RabbitMQ.md)
+- [Mybatis](media/doc/Mybatis.md)
 
 
 ## 每周一问
