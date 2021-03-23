@@ -61,7 +61,7 @@
 
 ## 断路器
 
-使微服务系统在糟糕的情况下，仍然保证可用性。提供熔断、服务降级等功能。
+避免服务雪崩，保证系统可用性。
 
 * [Hystrix](media/doc/Hystrix.md)
 * [Resilience4j](media/doc/Resilience4j.md)
