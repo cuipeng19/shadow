@@ -17,7 +17,7 @@
 
 ## Map
 
-有序集合，存放键值对。
+存放键值对。
 
 ### Map的实现类
 
@@ -277,7 +277,7 @@ public class HashMap<K,V> extends AbstractMap<K,V>
     transient Set<Map.Entry<K,V>> entrySet;
 
     /**
-     * 存放元素的个数，注意这个不等于数组的长度。
+     * 存放元素的总个数，注意这个不等于数组的长度。
      */
     transient int size;
 
