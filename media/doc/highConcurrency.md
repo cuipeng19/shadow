@@ -88,10 +88,11 @@
 ### 线程的生命周期与状态
 
 ![线程的生命周期与状态](../picture/thread/thead状态.png)
-* NEW新建
-* RUNNABLE运行
+* NEW新建线程
+* RUNNABLE新建后可运行
+* RUNNING分配时间片运行
 * BLOCKED遇到snchronized同步块，进入阻塞状态
-* WAITING/TIMED_WAITING等待
+* WAITING/TIMED_WAITING等待另一个线程唤醒
 * TERMINATED终止
 
 
@@ -216,8 +217,8 @@ ThreadPoolExecutor
 
 * AbortPolicy：直接抛出异常
 * CallerRunsPolicy：交给调用主线程执行
-* DisCardOldestPolicy：丢弃最老的一个请求
-* DisCardPolicy：丢弃无法处理的任务1
+* DiscardOldestPolicy：丢弃最老的一个请求
+* DiscardPolicy：直接丢弃
 
 
 ## 锁
