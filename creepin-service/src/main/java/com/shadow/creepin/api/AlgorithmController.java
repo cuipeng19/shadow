@@ -1199,6 +1199,72 @@ public class AlgorithmController {
     }
 
 
+    /**
+     * 冒泡排序
+     * 元素与后面的元素比较
+     */
+    public int[] bubbleSort(int[] array) {
+        if(array==null || array.length==0) return array;
+
+        for(int i=0; i<array.length; i++) {
+            for(int j=i+1; j<array.length; j++) {
+                if(array[j] < array[i]) {
+                    int temp = array[j];
+                    array[j] = array[i];
+                    array[i] = temp;
+                }
+            }
+        }
+
+        return array;
+    }
+
+
+    /**
+     * 选择排序
+     * 扫描未排序的部分找到最小元素，放到已排序末尾
+     */
+    public int[] selectionSort(int[] array) {
+        if(array==null || array.length==0) return array;
+
+        for(int i=0; i<array.length; i++) {
+            int minIndex = i;
+
+            for(int j=i+1; j<array.length; j++) {
+                if(array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
+            }
+
+            int temp = array[i];
+            array[i] = array[minIndex];
+            array[minIndex] = temp;
+        }
+
+        return array;
+    }
+
+
+    /**
+     * 插入排序
+     * 未排序的部分取一个元素，扫描插入已排序中
+     */
+    public int[] insertionSort(int[] array) {
+        if(array==null || array.length==0) return array;
+
+        for(int i=1; i<array.length; i++) {
+            for(int j=0; j<=i; j++) {
+                if(array[i] < array[j]) {
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+
+        return array;
+    }
+
 
     /**
      * 反转链表
