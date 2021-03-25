@@ -1230,12 +1230,14 @@ public class AlgorithmController {
         for(int i=0; i<array.length; i++) {
             int minIndex = i;
 
+            // 未排序部分找最小索引
             for(int j=i+1; j<array.length; j++) {
                 if(array[j] < array[minIndex]) {
                     minIndex = j;
                 }
             }
 
+            // 最小元素放到已排序末尾
             int temp = array[i];
             array[i] = array[minIndex];
             array[minIndex] = temp;
@@ -1253,6 +1255,8 @@ public class AlgorithmController {
         if(array==null || array.length==0) return array;
 
         for(int i=1; i<array.length; i++) {
+
+            // 已排序部分比较
             for(int j=0; j<=i; j++) {
                 if(array[i] < array[j]) {
                     int temp = array[i];
@@ -1264,6 +1268,86 @@ public class AlgorithmController {
 
         return array;
     }
+
+
+    /**
+     * 归并排序
+     * 从中间递归分割成一个个的数据，在两两归并到一起
+     */
+    public int[] mergeSort(int[] array) {
+        if(array==null || array.length<2) return array;
+
+        int middle = array.length/2;
+        int[] left = Arrays.copyOfRange(array,0, middle);
+        int[] right = Arrays.copyOfRange(array, middle, array.length);
+        return merge(mergeSort(left), mergeSort(right));
+    }
+    private int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+
+        int i = 0, leftIndex = 0, rightIndex = 0;
+
+        while (leftIndex<left.length && rightIndex<right.length) {
+            if(left[leftIndex] < right[rightIndex]) {
+                result[i++] = left[leftIndex++];
+            } else {
+                result[i++] = right[rightIndex++];
+            }
+        }
+        // 处理数组的剩余部分
+        while (i<result.length) {
+            if(leftIndex>=left.length) {
+                result[i++] = right[rightIndex++];
+            } else {
+                result[i++] = left[leftIndex++];
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 快速排序
+     * 确定一个基准数，比基准数大的放到右边，小的放到左边，对左右两边递归
+     */
+    public int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length-1);
+        return nums;
+    }
+    private void quickSort(int[] nums, int l, int r) {
+        if(l<r) {
+            int p = partition(nums, l, r);
+
+            quickSort(nums, l, p-1);
+            quickSort(nums, p+1, r);
+        }
+    }
+    private int partition(int[] nums, int l, int r) {
+        int random = new Random().nextInt(r-l+1) + l;
+        // 随机索引换到最左端
+        swap(nums, l, random);
+
+        int pivot = nums[l];
+        int pivotIndex = l;
+        // 小于基准数的排在基准索引的下一位
+        for(int i=l+1; i<=r; i++) {
+            if(nums[i] < pivot) {
+                pivotIndex++;
+                swap(nums, i, pivotIndex);
+            }
+        }
+        // 最左端与基准索引交换
+        swap(nums, l, pivotIndex);
+
+        return pivotIndex;
+    }
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
 
 
     /**
@@ -1400,47 +1484,6 @@ public class AlgorithmController {
     public int majorityElement(int[] nums) {
         Arrays.sort(nums);
         return nums[nums.length/2];
-    }
-
-
-    /**
-     * 排序数组
-     *
-     * 快速排序
-     * 分治思想，确定基准数，递归基准数的左右两部分
-     */
-    public int[] sortArray(int[] nums) {
-        quickSort(nums, 0, nums.length-1);
-        return nums;
-    }
-    private void quickSort(int[] nums, int l, int r) {
-        if(l<r) {
-            int p = partition(nums, l, r);
-
-            quickSort(nums, l, p-1);
-            quickSort(nums, p+1, r);
-        }
-    }
-    private int partition(int[] nums, int l, int r) {
-        int random = new Random().nextInt(r-l+1) + l;
-        swap(nums, l, random);
-
-        int pivot = nums[l];
-        int pivotIndex = l;
-        for(int i=l+1; i<=r; i++) {
-            if(nums[i] < pivot) {
-                pivotIndex++;
-                swap(nums, i, pivotIndex);
-            }
-        }
-        swap(nums, l, pivotIndex);
-
-        return pivotIndex;
-    }
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
     }
 
 
