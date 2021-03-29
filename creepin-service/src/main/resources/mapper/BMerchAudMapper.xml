@@ -137,4 +137,11 @@
     <result column="PRIVATE_OCCUPATION_CODE" jdbcType="VARCHAR" property="privateOccupationCode" />
     <result column="H5_TRACE_NO" jdbcType="VARCHAR" property="h5TraceNo" />
   </resultMap>
+
+  <select id="getMerchCount" resultType="java.lang.Integer">
+        select count(*) from b_merch
+    </select>
+  <select id="getMerchId" resultType="java.lang.String">
+        select merch_id from b_merch
+    </select>
 </mapper>
