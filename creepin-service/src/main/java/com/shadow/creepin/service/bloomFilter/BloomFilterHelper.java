@@ -1,4 +1,4 @@
-package com.shadow.common.util;
+package com.shadow.creepin.service.bloomFilter;
 
 import com.google.common.base.Preconditions;
 import com.google.common.hash.Funnel;
@@ -30,7 +30,7 @@ public class BloomFilterHelper<T> {
     }
 
 
-    int[] murmurHashOffset(T value) {
+    public int[] murmurHashOffset(T value) {
         int[] offset = new int[numHashFunctions];
 
         long hash64 = Hashing.murmur3_128().hashObject(value, funnel).asLong();
