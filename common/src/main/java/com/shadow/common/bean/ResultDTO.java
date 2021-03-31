@@ -57,7 +57,7 @@ public class ResultDTO<T> {
 
 
     /**
-     * 10000
+     * 20000
      * <p>操作成功</p>
      */
     public static ResultDTO success() {

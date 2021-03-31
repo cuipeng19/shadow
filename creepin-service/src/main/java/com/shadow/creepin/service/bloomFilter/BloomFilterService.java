@@ -7,8 +7,6 @@ import org.springframework.boot.ApplicationRunner;
  */
 public interface BloomFilterService extends ApplicationRunner {
 
-    <T> void put(String key, T value);
-
     <T> boolean mightContain(String key, T value);
 
 }
