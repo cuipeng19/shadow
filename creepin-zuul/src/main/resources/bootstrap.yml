@@ -1,0 +1,42 @@
+server:
+  port: 19501
+
+spring:
+  application:
+    name: creepin-zuul
+  cloud:
+    config:
+      name: ${spring.application.name},redis
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: config-server
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
+
+zuul:
+  routes:
+    creepin-service:
+      path: /zuul/*
+      service-id: creepin-service
+  ratelimit:
+    enabled: true
+    repository: REDIS
+    default-policy-list:
+      # 时间戳内限制请求次数
+      - limit: 5000
+        # 每次刷新间隔窗口请求时间限制 单位秒
+        quota: 50
+        # 时间戳 单位秒
+        refresh-interval: 5
+        type:
+          - ORIGIN
+
+logging:
+  file:
+    path: logs
