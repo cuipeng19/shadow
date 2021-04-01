@@ -32,21 +32,25 @@ public class TestServiceImpl implements TestService {
     @Transactional
     public Object test(TestAO ao) {
 
-        BMerchAudDO record = new BMerchAudDO();
-        record.setId("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
-        record.setAuditOperation("1");
-        record.setAuditCode("10000000");
-        bMerchAudMapper.updateByPrimaryKeySelective(record);
+//        BMerchAudDO record = new BMerchAudDO();
+//        record.setId("ZWNTLH0ZUFC5L5HBOGHWC4428CKKPLQI");
+//        record.setAuditOperation("1");
+//        record.setAuditCode("10000000");
+//        bMerchAudMapper.updateByPrimaryKeySelective(record);
 
-//        ResultDTO dto = letterServiceFeign.test(ao);
+        ResultDTO dto = letterServiceFeign.test(ao);
 
-        String a = null;
-        try {
-            a.split(",");
-        } catch (Exception e) {
-            throw new ShadowException(ShadowStatus.ERROR_BUSINESS);
+        if(dto.getCode()!=20000) {
+            throw new ShadowException(dto.getCode(), dto.getMessage());
         }
 
-        return ResultDTO.success();
+//        String a = null;
+//        try {
+//            a.split(",");
+//        } catch (Exception e) {
+//            throw new ShadowException(ShadowStatus.ERROR_BUSINESS);
+//        }
+
+        return "";
     }
 }

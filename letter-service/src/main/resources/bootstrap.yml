@@ -30,7 +30,9 @@ feign:
         readTimeout: 60000
         loggerLevel: basic
   hystrix:
-    enabled: false
+    enabled: true
+ribbon:
+  MaxAutoRetriesNextServer: 1
 
 
 mybatis:

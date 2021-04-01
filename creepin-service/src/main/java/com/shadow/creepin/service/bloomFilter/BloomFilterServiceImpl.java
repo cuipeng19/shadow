@@ -36,7 +36,7 @@ public class BloomFilterServiceImpl implements BloomFilterService {
         for(int i=1; i<=(count/50000)+1; i++) {
             PageHelper.startPage(i,50000);
             List<String> list = merchAudMapper.getMerchId();
-            list.stream().forEach(e -> {
+            list.parallelStream().forEach(e -> {
                 put("bloom:merchId", e);
             });
             System.out.println("put完成" + i);
@@ -45,8 +45,8 @@ public class BloomFilterServiceImpl implements BloomFilterService {
     }
 
 
-    @Override
-    public <T> void put(String key, T value) {
+
+    private <T> void put(String key, T value) {
         int[] offset = bloomFilterHelper.murmurHashOffset(value);
         for(int i : offset) {
             stringRedisTemplate.opsForValue().setBit(key, i, true);

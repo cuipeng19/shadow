@@ -11,9 +11,6 @@ spring:
       discovery:
         enabled: true
         service-id: config-server
-#    alibaba:
-#      seata:
-#        tx-service-group: shadow-tx-group
   profiles:
     active: dev
 
@@ -23,14 +20,18 @@ eureka:
       defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
 
 feign:
-  client:
-    config:
-      default:
-        connectTimeout: 60000
-        readTimeout: 60000
-        loggerLevel: basic
   hystrix:
-    enabled: false
+    enabled: true
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 3000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: true
+hystrix.command.default.execution:
+  timeout.enabled: true
+  isolation.thread.timeoutInMilliseconds: 30000
+
 
 mybatis:
   mapperLocations: classpath:mapper/*Mapper.xml
