@@ -36,6 +36,12 @@ public class ThreadPoolProvide extends AbstractThreadPoolService {
      */
     private ListeningExecutorService cacheListeningThreadPool;
 
+    /**
+     * type: 30
+     * 适用场景： 延时执行
+     */
+    private ScheduledExecutorService scheduleThreadPool;
+
 
     /**
      * 私有构造
@@ -57,6 +63,7 @@ public class ThreadPoolProvide extends AbstractThreadPoolService {
                                                         Executors.defaultThreadFactory(),
                                                         new CallerRunsPolicy());
         this.cacheListeningThreadPool = MoreExecutors.listeningDecorator(this.cacheThreadPool);
+        this.scheduleThreadPool = Executors.newScheduledThreadPool(1);
     }
 
 
@@ -71,6 +78,8 @@ public class ThreadPoolProvide extends AbstractThreadPoolService {
                 return this.cacheThreadPool;
             case 21:
                 return this.cacheListeningThreadPool;
+            case 30:
+                return this.scheduleThreadPool;
             default:
                 return this.fastThreadPool;
         }
