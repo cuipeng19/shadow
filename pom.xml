@@ -25,6 +25,7 @@
         <module>stan-service</module>
         <module>stan-service-gateway</module>
         <module>creepin-zuul</module>
+        <module>letter-service-sdk</module>
     </modules>
 
     <dependencyManagement>
