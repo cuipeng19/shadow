@@ -1,8 +1,13 @@
 package com.shadow.creepin.api;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.common.util.concurrent.ListenableScheduledFuture;
+import com.google.common.util.concurrent.ListeningScheduledExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
 import com.shadow.common.bean.ResultDTO;
 import com.shadow.common.bean.creepin.ao.TestAO;
 import com.shadow.creepin.service.TestService;
+import com.shadow.letter.sdk.LetterTransFeign;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -19,7 +24,7 @@ import java.io.File;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
 /**
@@ -33,18 +38,22 @@ public class TestController {
     private TestService testService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private LetterTransFeign letterTransFeign;
 
 
-    @GetMapping("/test")
+    @GetMapping(value = "/test",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultDTO test() {
 
-        try {
-            Object o = testService.test(new TestAO());
-        } catch (Exception e) {
-            return ResultDTO.error().setMessage(e.getMessage());
-        }
+//        try {
+//            Object o = testService.test(new TestAO());
+//        } catch (Exception e) {
+//            return ResultDTO.error().setMessage(e.getMessage());
+//        }
+        ResultDTO dto = letterTransFeign.test(new TestAO());
 
-        return ResultDTO.success();
+//        return ResultDTO.success();
+        return dto;
     }
 
     @GetMapping("/post")
@@ -59,17 +68,6 @@ public class TestController {
         return ResultDTO.success();
     }
 
-//    @GetMapping(value = "/test", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    private Flux<String> flux() {
-        Flux<String> result = Flux.fromStream(IntStream.range(1, 5).mapToObj(i -> {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-            }
-            return "flux data--" + i;
-        }));
-        return result;
-    }
 
 
     public static class ListNode {
@@ -95,7 +93,7 @@ public class TestController {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        ListNode head = new ListNode(4);
 //        ListNode head2 = new ListNode(6);
 //        ListNode head3 = new ListNode(1);
@@ -115,8 +113,22 @@ public class TestController {
 //        }
 //        System.out.println(containsNearbyDuplicate(new int[]{1,2,3,4,5,6,7,8,9,9}, 3));
 
-        int[] nums1 = new int[]{1,6,2,7,3,4,5};
-        Arrays.stream(sortArray(nums1)).forEach(System.out::println);
+//        int[] nums1 = new int[]{1,6,2,7,3,4,5};
+//        Arrays.stream(sortArray(nums1)).forEach(System.out::println);
+
+        System.out.println(System.currentTimeMillis());
+        ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(5);
+        ScheduledFuture future = scheduled.schedule(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+
+                System.out.println("aaa" + System.currentTimeMillis());
+                return "bbb";
+            }
+        }, 3,TimeUnit.SECONDS);
+
+        scheduled.shutdown();
+        System.out.println(future.get());
     }
 
     public static int[] sortArray(int[] nums) {

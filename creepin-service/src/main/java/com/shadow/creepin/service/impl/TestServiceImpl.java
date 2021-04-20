@@ -6,8 +6,8 @@ import com.shadow.common.bean.entity.BMerchAudDO;
 import com.shadow.common.exception.ShadowException;
 import com.shadow.common.exception.ShadowStatus;
 import com.shadow.creepin.dao.BMerchAudMapper;
-import com.shadow.creepin.feign.LetterServiceFeign;
 import com.shadow.creepin.service.TestService;
+import com.shadow.letter.sdk.LetterTransFeign;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private BMerchAudMapper bMerchAudMapper;
     @Autowired
-    private LetterServiceFeign letterServiceFeign;
+    private LetterTransFeign letterTransFeign;
 
 
     @Override
@@ -38,7 +38,7 @@ public class TestServiceImpl implements TestService {
 //        record.setAuditCode("10000000");
 //        bMerchAudMapper.updateByPrimaryKeySelective(record);
 
-        ResultDTO dto = letterServiceFeign.test(ao);
+        ResultDTO dto = letterTransFeign.test(ao);
 
         if(dto.getCode()!=20000) {
             throw new ShadowException(dto.getCode(), dto.getMessage());
