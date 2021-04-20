@@ -1,0 +1,24 @@
+server:
+  port: 19601
+
+spring:
+  application:
+    name: nancy-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      eager: true
+      transport:
+        dashboard: localhost:8080
+
+feign:
+  sentinel:
+    enabled: true
+
+logging:
+  file:
+    path: logs
