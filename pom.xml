@@ -26,6 +26,9 @@
         <module>stan-service-gateway</module>
         <module>creepin-zuul</module>
         <module>letter-service-sdk</module>
+        <module>nancy-service</module>
+        <module>hhkb-service</module>
+        <module>hhkb-service-sdk</module>
     </modules>
 
     <dependencyManagement>
