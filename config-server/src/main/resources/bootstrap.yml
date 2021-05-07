@@ -15,7 +15,8 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://peer1:19001/eureka/,http://peer2:19002/eureka/
+      defaultZone: http://peer1:19001/eureka/
+#      ,http://peer2:19002/eureka/
 
 logging:
   file:
