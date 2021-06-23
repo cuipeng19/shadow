@@ -6,7 +6,7 @@ spring:
     name: creepin-service
   cloud:
     config:
-      name: ${spring.application.name},datasource,redis
+      name: ${spring.application.name},masterSlave,redis
       profile: ${spring.profiles.active}
       discovery:
         enabled: true
