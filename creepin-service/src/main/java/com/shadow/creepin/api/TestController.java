@@ -72,14 +72,14 @@ public class TestController {
 
     @GetMapping("/master")
     public ResultDTO master() {
-        testService.updateMerch();
+        testService.updateBill();
 
         return ResultDTO.success();
     }
 
     @GetMapping("/slave")
     public ResultDTO slave() {
-        testService.getMerch();
+        testService.getBill();
 
         return ResultDTO.success();
     }

@@ -9,7 +9,7 @@ public interface TestService {
 
     Object test(TestAO ao);
 
-    void getMerch();
+    void getBill();
 
-    void updateMerch();
+    void updateBill();
 }

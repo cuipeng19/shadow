@@ -59,6 +59,11 @@
             <artifactId>letter-service-sdk</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -104,6 +109,11 @@
                         <groupId>com.oracle</groupId>
                         <artifactId>ojdbc6</artifactId>
                         <version>11.2.0.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.2.6</version>
                     </dependency>
                     <dependency>
                         <groupId>tk.mybatis</groupId>

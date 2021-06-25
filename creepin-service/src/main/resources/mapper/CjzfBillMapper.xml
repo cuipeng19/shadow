@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shadow.creepin.dao.CjzfBillMapper">
+  <resultMap id="BaseResultMap" type="com.shadow.common.bean.entity.CjzfBill">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="file_status" jdbcType="INTEGER" property="fileStatus" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="trans_date" jdbcType="VARCHAR" property="transDate" />
+    <result column="merch_no" jdbcType="VARCHAR" property="merchNo" />
+    <result column="app_id" jdbcType="VARCHAR" property="appId" />
+    <result column="wechat_mch_id" jdbcType="VARCHAR" property="wechatMchId" />
+  </resultMap>
+</mapper>

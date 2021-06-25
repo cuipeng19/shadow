@@ -2,17 +2,17 @@ spring:
   datasource:
     druid:
       master:
-        url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
-        username: posp
-        password: posp
-        driver-class-name: oracle.jdbc.driver.OracleDriver
+        url: jdbc:postgresql://10.255.2.197:5432/hsy_core?autosave=conservative
+        username: postgres
+        password: pg@chanjet
+        driver-class-name: org.postgresql.Driver
         initial-size: 0
         max-active: 60
         min-idle: 2
         max-wait: 5000
         pool-prepared-statements: true
         max-pool-prepared-statement-per-connection-size: 20
-        validation-query: 'SELECT 1 FROM DUAL'
+        validation-query: 'SELECT 1'
         validation-query-timeout: 1000
         test-on-borrow: false
         test-on-return: false
@@ -36,17 +36,17 @@ spring:
           allow: 127.0.0.1
           deny: 192.0.0.1
       slave:
-        url: jdbc:oracle:thin:@10.255.2.146:1521:pandb
-        username: posp
-        password: posp
-        driver-class-name: oracle.jdbc.driver.OracleDriver
+        url: jdbc:postgresql://10.255.2.199:5432/hsy_core?autosave=conservative
+        username: postgres
+        password: pg@chanjet
+        driver-class-name: org.postgresql.Driver
         initial-size: 0
         max-active: 60
         min-idle: 2
         max-wait: 5000
         pool-prepared-statements: true
         max-pool-prepared-statement-per-connection-size: 20
-        validation-query: 'SELECT 1 FROM DUAL'
+        validation-query: 'SELECT 1'
         validation-query-timeout: 1000
         test-on-borrow: false
         test-on-return: false
